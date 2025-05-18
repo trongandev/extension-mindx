@@ -1,5 +1,5 @@
 function checkUpdate() {
-    fetch("https://raw.githubusercontent.com/angutboiz/translate-quizzet-extension/refs/heads/main/data/version.json")
+    fetch("https://raw.githubusercontent.com/trongandev/extension-mindx/refs/heads/main/data/version.json")
         .then((response) => response.json())
         .then((data) => {
             const currentVersion = chrome.runtime.getManifest().version;
@@ -21,7 +21,7 @@ function checkUpdate() {
                         // Mở trang cập nhật khi người dùng bấm vào thông báo
                         chrome.notifications.onClicked.addListener((notificationId) => {
                             if (notificationId === "update_notification") {
-                                chrome.tabs.create({ url: "https://github.com/angutboiz/translate-quizzet-extension" });
+                                chrome.tabs.create({ url: "https://github.com/trongandev/extension-mindx" });
                             }
                         });
                     }
