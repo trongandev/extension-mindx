@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "Auto Comment MindX",
+    "version": "1.0",
+    "description": "Một công cụ giúp nhận xét nhanh trên LMS MindX, tự động chọn các thông tin phù hợp, tự viết nhận xét trên các checkpoint",
+    "permissions": ["activeTab", "scripting", "notifications", "storage"],
+    "background": {
+        "service_worker": "src/background.js"
+    },
+    "action": {
+        "default_popup": "src/popup/popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["src/content.js"]
+        }
+    ],
+    "icons": {
+        "16": "src/assets/icon.png",
+        "32": "src/assets/icon.png",
+        "64": "src/assets/icon.png",
+        "128": "src/assets/icon.png"
+    },
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+    },
+    "host_permissions": ["*://*.mindx.edu.vn/admin/classes?tab=*"]
+}

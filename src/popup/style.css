@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 16px;
+}
+
+.mindx-comment-container {
+    min-width: 400px;
+    max-width: 600px;
+    padding: 10px;
+}
+
+.mindx-comment-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.mindx-comment-container input:focus-visible {
+    outline: none;
+    border-color: #ff3d45;
+}
+
+.mindx-comment-container .result {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.mindx-comment-container .result .result-item {
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mindx-comment-container .result .result-item .desc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.mindx-comment-container .result .result-item:hover {
+    background-color: #ff3d430f;
+}
+.mindx-comment-container .result .result-item:hover > .copy {
+    display: flex;
+}
+
+.mindx-comment-container .result .result-item .copy {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mindx-comment-container .result .result-item .copy div {
+    background-color: #444040;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.mindx-comment-container .result .result-item .copy div:hover {
+    opacity: 0.7;
+}
+
+.mindx-comment-container textarea {
+    width: 100%;
+    outline: none;
+    border: none;
+    overflow: hidden;
+    resize: none;
+    background-color: transparent;
+}
+.mindx-comment-container textarea:focus-visible {
+    outline: none;
+    border: none;
+}
+
+.notification {
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: bottom 0.3s ease;
+    z-index: 9999;
+}
+
+.notification.show {
+    bottom: 20px;
+}

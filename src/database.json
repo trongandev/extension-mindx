@@ -1,0 +1,130 @@
+[
+    {
+        "name": "ptb",
+        "date": "2025",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "Ngôn ngữ máy là gì\nNgôn ngữ lập trình bậc cao là gì\nGiới thiệu và cài đặt môi trường lập trình Python\nMột số câu lệnh Python đầu tiên"
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "Tìm hiểu biến\nCác từ khóa Python cơ bản\nQuy tắc đặt tên biến trong Python\nCác kiểu dữ liệu trong Python\nÉp kiểu dữ liệu"
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "Giới thiệu về toán tử\nToán tử số học\nToán tử quan hệ\nToán tử logic\nBiểu thức logic"
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "Biểu thức điều kiện\nCâu điều kiện if - elif - else\nGiới thiệu về thuật toán\nVẽ sơ đồ khối"
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "Ôn tập kiểm tra kiến thức về nhập xuất dữ liệu, xử lý kiểu dữ liệu\nKết hợp toán tử để tạo biểu thức điểu kiện\nThực hành xây dựng thuật toán để giải quyết vấn đề\nThực hành xây dựng chương trình dựa trên sơ đồ khối"
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "Ôn tập kiểm tra kiến thức về nhập xuất dữ liệu, xử lý kiểu dữ liệu\nKết hợp toán tử để tạo biểu thức điểu kiện\nThực hành xây dựng thuật toán để giải quyết vấn đề\nThực hành xây dựng chương trình dựa trên sơ đồ khối"
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "Vòng lặp vô hạn\nÁp dụng được câu lệnh while trong Python\nPhân biệt ba cấu trúc lập trình cơ bản: tuần tự, rẽ nhánh, lặp"
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "Vận dụng các kiến thức đã học để giải quyết vấn đề"
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "Kiểm tra\nĐịnh nghĩa danh sách\nKhởi tạo danh sách"
+            }
+        ]
+    },
+    {
+        "name": "pti",
+        "date": "2025",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "Giới thiệu sản phẩm đầu ra của level Intensive\nCác khái niệm về AI\nẢnh hưởng của AI trong đời sống và xã hội\nAI được huấn huyện như thế nào: Làm quen với mạng Neuron"
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "Ôn tập kiến thức Lớp - Đối tượng\nÔn tập thư viện PyQt"
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "Ôn tập về danh sách\nDanh sách đối tượng trong Python\nDuyệt và xử lý phần tử trong danh sách\nÁp dụng xây dựng danh sách đối tượng cho dự án cá nhân"
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "Ôn tập kiến thức hàm\nXây dựng chương trình quản lý danh sách đối tượng\nÁp dụng quản lý danh sách đối tượng cho dự án cá nhân"
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "Kiểm tra kiến thức về quản lý danh sách đối tượng, xây dựng sơ đồ đối tượng, khởi tạo, duyệt mảng, thêm và xóa trên danh sách đối tượng\nKhái niệm dữ liệu và vai trò trong ứng dụng\nTìm hiểu về kiểu dữ liệu JSON"
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "Tìm hiểu đọc ghi file dữ liệu\nSử dụng JSON trong chương trình quản lý\nÁp dụng quản lý dữ liệu cho dự án cá nhân"
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "Ôn tập lại widget trong công cụ xây dựng giao diện\nTìm hiểu widget dành cho danh sách\nCác hao tác với widget cho danh sách\nÁp dụng xây dựng giao diện quản lý cho dự án cá nhân"
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "Ôn tập về sự kiện\nTìm hiểu về cách sự kiện ảnh hưởng đến dữ liệu lưu trữ trong JSON\nÁp dụng xử lý sự kiện và tương tác với giao diện cho dự án cá nhân\nKiểm tra tiến độ dự án cá nhân"
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "Kiểm tra kiến thức về đọc ghi file JSON\nKiểm tra kiến thức về xây dựng giao diện trong chương trình quản lý\nKiểm tra kiến thức về xử lý sự kiện trong chương trình quản lý"
+            },
+            {
+                "section": "Buổi 10",
+                "lession_content": "Text-to-Speed\nSử dụng thư viện để thêm các tính năng AI vào cho phần mềm\nHướng dẫn triển khai phần mềm trong môi trường thực tế"
+            },
+            {
+                "section": "Buổi 11",
+                "lession_content": "làm Sản phẩm cuối khóa"
+            },
+            {
+                "section": "Buổi 12",
+                "lession_content": "làm Sản phẩm cuối khóa"
+            },
+            {
+                "section": "Buổi 13",
+                "lession_content": "làm Sản phẩm cuối khóa"
+            }
+        ]
+    },
+    {
+        "name": "arma",
+        "date": "2025",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "Ôn tập giới thiệu bài mới"
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "Lắp mô hình trang bị 2 động cơ, nam châm điện và cảm biến mắt\nLập trình mô hình cánh tay di chuyển đồ vật từ vị trí ban đầu sang vị trí khác với thẻ lệnh, toán tử logic"
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "Lắp ráp mô hình cách tay trang bị 2 đọng cơ, nam châm điện và cảm biến mắt\nLập trình mô hình cách tay di chuyển dồ vật từ vị trí ban đầu sang vị trí khác với thẻ lệnh biến số, toán tử logic, repeat.. until"
+            }
+        ]
+    },
+    {
+        "name": "jsb",
+        "date": "2025",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "Tìm hiểu về các tiêu chuẩn , khái niệm website: W3C, URL và HTTPS\nGiới thiệu về HTLM5 và cú pháp, các dạng thẻ\nLàm quen với IDE VSCode\nTạo trang web hiển thị nội dung đơn giản"
+            }
+        ]
+    }
+]
