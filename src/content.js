@@ -52,11 +52,13 @@ const observer = new MutationObserver((mutations) => {
                     bodyContainer[0].appendChild(commentButton3);
 
                     const danhgiachung = bodyContainer[0].querySelector(".quill .ql-container p");
+                    const demoScore = bodyContainer[0].querySelectorAll("input.MuiInputBase-input.MuiOutlinedInput-input");
+                    console.log(demoScore);
 
                     // học viên ở mức trung bình
                     commentButton1.addEventListener("click", () => {
                         const inputs = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='radio']");
-
+                        console.log(inputs);
                         inputs[3].click(); //[COD] Kỹ năng giao tiếp, hợp tác
                         inputs[3 + 5].click(); //[COD] Kỹ năng giải quyết vấn đề
                         inputs[3 + 5 * 2].click(); //[COD] Kỹ năng sử dụng máy tính
@@ -64,7 +66,21 @@ const observer = new MutationObserver((mutations) => {
                         inputs[3 + 5 * 4].click(); //[COD] Tư duy máy tính, tư duy thuật toán
                         inputs[3 + 5 * 5].click(); //[COD] Kiến thức học viên đã được học tại lớp
                         inputs[3 + 5 * 6].click(); //[COD] Tư duy sáng tạo
-                        danhgiachung.innerText = "Bạn có thái độ học tập ở mức khá, có tinh thần học tập cầu tiến. Bạn đã hoàn thành được một số bài tập về nhà, tuy nhiên cần bổ sung đầy đủ hơn.";
+                        if (inputs.length > 35) {
+                            inputs[3 + 5 * 7 - 1].click(); //[COD] Tư duy sáng tạo
+                            inputs[3 + 5 * 8].click(); //[COD] Tư duy sáng tạo
+                        }
+                        if (danhgiachung) {
+                            danhgiachung.innerText = "Bạn có thái độ học tập ở mức khá, có tinh thần học tập cầu tiến. Bạn đã hoàn thành được một số bài tập về nhà, tuy nhiên cần bổ sung đầy đủ hơn.";
+                        }
+                        if (demoScore && demoScore.length > 0) {
+                            demoScore[0].value = 1.5 + 0.6 + 0.3 + 0.6 + 0.3;
+                            demoScore[1].value = 1.5;
+                            demoScore[2].value = 0.6;
+                            demoScore[3].value = 0.3;
+                            demoScore[4].value = 0.6;
+                            demoScore[5].value = 0.3;
+                        }
                     });
 
                     // học viên ở mức khá
@@ -77,8 +93,22 @@ const observer = new MutationObserver((mutations) => {
                         inputs[4 + 5 * 4 - 1].click(); //[COD] Tư duy máy tính, tư duy thuật toán
                         inputs[4 + 5 * 5].click(); //[COD] Kiến thức học viên đã được học tại lớp
                         inputs[4 + 5 * 6 - 1].click(); //[COD] Tư duy sáng tạo
-                        danhgiachung.innerText =
-                            "Bạn có thái độ học tập tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt một số bài tập ở mức dễ và trung bình, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết.";
+                        if (inputs.length > 35) {
+                            inputs[4 + 5 * 7 - 1].click(); //[COD] Tư duy sáng tạo
+                            inputs[4 + 5 * 8].click(); //[COD] Tư duy sáng tạo
+                        }
+                        if (danhgiachung) {
+                            danhgiachung.innerText =
+                                "Bạn có thái độ học tập tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt một số bài tập ở mức dễ và trung bình, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết.";
+                        }
+                        if (demoScore && demoScore.length > 0) {
+                            demoScore[0].value = 1.7 + 0.8 + 0.5 + 0.8 + 0.5;
+                            demoScore[1].value = 1.7;
+                            demoScore[2].value = 0.8;
+                            demoScore[3].value = 0.5;
+                            demoScore[4].value = 0.8;
+                            demoScore[5].value = 0.5;
+                        }
                     });
 
                     // học viên ở mức giỏi
@@ -91,8 +121,22 @@ const observer = new MutationObserver((mutations) => {
                         inputs[5 + 5 * 4 - 2].click(); //[COD] Tư duy máy tính, tư duy thuật toán
                         inputs[5 + 5 * 5].click(); //[COD] Kiến thức học viên đã được học tại lớp
                         inputs[5 + 5 * 6 - 1].click(); //[COD] Tư duy sáng tạo
-                        danhgiachung.innerText =
-                            "Bạn có thái độ học tập rất tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt các bài tập, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết.";
+                        if (inputs.length > 35) {
+                            inputs[5 + 5 * 7 - 1].click(); //[COD] Tư duy sáng tạo
+                            inputs[5 + 5 * 8 - 1].click(); //[COD] Tư duy sáng tạo
+                        }
+                        if (danhgiachung) {
+                            danhgiachung.innerText =
+                                "Bạn có thái độ học tập rất tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt các bài tập, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết.";
+                        }
+                        if (demoScore && demoScore.length > 0) {
+                            demoScore[0].value = 1.9 + 1 + 0.5 + 0.9 + 0.5;
+                            demoScore[1].value = 1.9;
+                            demoScore[2].value = 1;
+                            demoScore[3].value = 0.5;
+                            demoScore[4].value = 0.9;
+                            demoScore[5].value = 0.5;
+                        }
                     });
                 }
             }
