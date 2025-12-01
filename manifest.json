@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Auto Comment MindX",
-    "version": "1.0",
+    "version": "1.2",
     "description": "Một công cụ giúp nhận xét nhanh trên LMS MindX, tự động chọn các thông tin phù hợp, tự viết nhận xét trên các checkpoint",
     "permissions": ["activeTab", "scripting", "notifications", "storage"],
     "background": {
