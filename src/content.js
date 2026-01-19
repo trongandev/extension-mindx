@@ -1,50 +1,68 @@
 const FEEDBACK_ARRAY = [
     [
+        // Kiến thức học viên tự học.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Kiến thức học viên tự học.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn có chủ động tìm kiếm thông tin, nhưng chưa biết cách tìm kiếm hiệu quả, cần thầy hướng dẫn gợi ý thêm.",
+        "Bạn chủ động tìm kiếm thêm những nguồn kiến thức bên ngoài, tự xử lý được những khúc mắc khi giáo viên gợi ý cần tìm hiểu và giải quyết được vấn đề",
         "Bạn rất chủ động trong việc tìm kiếm kiến thức bên ngoài. Ví dụ, sau khi thầy gợi ý về các tài nguyên trực tuyến, bạn đã tìm được một số video và bài viết hữu ích về chủ đề đó.",
-
-        "Khi gặp khúc mắc, bạn không ngần ngại hỏi thầy và đã tự mình tìm hiểu thêm để giải quyết vấn đề. Chẳng hạn, bạn đã tự nghiên cứu cách sử dụng một công cụ mới và sau đó chia sẻ với cả lớp.",
-
-        "Sự chủ động của bạn trong việc học hỏi không chỉ giúp bạn nắm vững kiến thức mà còn truyền cảm hứng cho các bạn khác trong lớp.",
     ],
     [
+        // Kiến thức học viên đã được học tại lớp.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Kiến thức học viên đã được học tại lớp.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn nắm được kiến thức cơ bản nhưng còn hay quên, mất nhiều thời gian để ghi nhớ và cần ôn tập lại",
+        "Bạn hiểu hiểu được kiến thức, nắm và áp dụng lại kiến thức vào bài thực hành",
         "Bạn đã hiểu rất nhanh các kiến thức được thầy truyền đạt trong buổi học hôm nay. Chẳng hạn, bạn đã vận dụng ngay lý thuyết vào bài thực hành và hoàn thành bài tập một cách chính xác.",
-        "Trong buổi thực hành, bạn đã áp dụng toàn bộ kiến thức đã học vào dự án nhóm của mình. Điều này cho thấy sự nắm bắt và ứng dụng kiến thức của bạn rất tốt.",
-        "Bạn không chỉ hiểu bài mà còn có khả năng giải thích lại cho các bạn khác. Điều này chứng tỏ bạn đã nắm vững kiến thức và có thể truyền đạt lại một cách rõ ràng.",
     ],
     [
-        "Bạn có tinh thần tích cực khi tham gia thảo luận nhóm. Khi thầy hỏi, bạn luôn sẵn sàng chia sẻ ý kiến và quan điểm của mình, điều này giúp tăng cường sự tương tác trong lớp.",
-        "Bạn biết quan tâm đến bạn bè và thường xuyên giúp đỡ các bạn trong nhóm. Chẳng hạn, bạn đã dành thời gian để giải thích một số khái niệm khó cho các bạn không hiểu.",
-        "Mặc dù bạn còn một chút bối rối khi thuyết trình trước lớp, nhưng sự tự tin của bạn đang dần được cải thiện. Việc bạn dám đứng lên trình bày ý tưởng cho cả lớp là một điều rất đáng khen.",
+        // Kỹ năng giao tiếp, hợp tác.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Kỹ năng giao tiếp, hợp tác.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn trình bày ý kiến với thầy khá tốt, chủ động hỏi khi chưa hiểu bài, nhưng đôi khi còn ngại ngùng khi trao đổi với bạn bè.",
+        "Bạn có thể trình bày ý kiến rõ ràng, biết lắng nghe và hợp tác tốt với bạn bè trong nhóm.",
+        "Bạn rất tự tin khi trình bày ý kiến trước lớp và luôn lắng nghe, tôn trọng ý kiến của bạn bè.",
     ],
     [
-        "Bạn đã có thể phân tích vấn đề rất tốt và tự đưa ra giải pháp của riêng mình. Ví dụ, trong một bài tập nhóm, bạn đã đề xuất một phương pháp mới để giải quyết nhiệm vụ được giao.",
-        "Bạn hiểu rõ cách mà sản phẩm mà chúng ta học hôm nay có thể giải quyết các vấn đề thực tế. Bạn đã nêu rõ đối tượng người dùng mà sản phẩm hướng đến trong phần thuyết trình của mình.",
-        "Sự nhạy bén của bạn trong việc phát hiện ra các vấn đề cần giải quyết là một điểm mạnh. Bạn đã chủ động thảo luận về các vấn đề thực tiễn và cách mà sản phẩm có thể giúp ích cho người dùng.",
+        // Kỹ năng giải quyết vấn đề.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Kỹ năng giải quyết vấn đề.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn biết cách chia vấn đề lớn thành các phần nhỏ để giải quyết, nhưng đôi khi còn gặp khó khăn trong việc tìm ra giải pháp phù hợp.",
+        "Bạn phân tích vấn đề tốt, có thể đưa ra các giải pháp hợp lý và lựa chọn phương án tối ưu.",
+        "Bạn phản biện và phân tích các giải pháp một cách sắc bén, từ đó chọn ra phương án hiệu quả nhất để giải quyết vấn đề.",
     ],
     [
-        "Bạn có tốc độ sử dụng chuột và bàn phím rất tốt, và đã biết gõ phím bằng hai tay với tốc độ vừa phải. Điều này giúp bạn tiết kiệm thời gian trong quá trình làm việc.",
-        "Bạn biết cách tìm kiếm thông tin trực tuyến hiệu quả. Trong giờ thực hành, bạn đã sử dụng email để đăng nhập vào các công cụ hỗ trợ xây dựng dự án một cách nhanh chóng.",
-        "Bạn cũng đã vận dụng các nguyên tắc về an toàn trên không gian mạng. Chẳng hạn, bạn đã nhắc nhở bạn bè về việc không chia sẻ thông tin cá nhân trên mạng.",
+        // Kỹ năng sử dụng máy tính.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Kỹ năng sử dụng máy tính.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn gõ tương đối còn chậm, cần luyện tập thêm để nâng cao tốc độ và độ chính xác.",
+        "Bạn gõ khá nhanh và chính xác, có thể sử dụng thành thạo các phím tắt cơ bản, theo kịp tiến độ học của lớp",
+        "Tốc độ gõ của bạn rất nhanh và chính xác. Bạn đã sử dụng thành thạo các phím tắt nâng cao để tăng hiệu quả làm việc trên máy tính.",
     ],
     [
-        "Bạn rất chủ động trong việc phát hiện ra những ý tưởng sáng tạo cho các tính năng của sản phẩm. Trong buổi thảo luận, bạn đã đặt câu hỏi thú vị về cách cải thiện sản phẩm.",
-        "Bạn đã tự mình thiết kế một trò chơi đơn giản, điều này thể hiện sự sáng tạo và khả năng thu hút sự chú ý của người khác. Bạn đã trình bày ý tưởng của mình rất rõ ràng và hấp dẫn.",
-        "Bạn có khả năng tạo ra những dự án mới độc đáo và có khả năng gây chú ý trong cộng đồng. Ví dụ, ý tưởng mà bạn đưa ra trong buổi họp nhóm đã thu hút sự quan tâm của nhiều bạn khác.",
+        // Tư duy máy tính.ĐNL, hợp tác.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Tư duy máy tính.ĐNL, hợp tác.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn có cái nhìn tổng quan về sản phẩm khi tiếp tiếp xúc với dự án mới, tuy nhiên còn gặp khó khăn trong lúc sửa các lỗi nhỏ.",
+        "Bạn có cái nhìn tổng quan về sản phẩm khi tiếp tiếp xúc với dự án mới, và biết cách xử lý các lỗi nhỏ phát sinh trong quá trình làm việc.",
+        "Bạn nhanh chóng nắm bắt được yêu cầu của dự án mới và có khả năng phát hiện, sửa chữa các lỗi nhỏ một cách hiệu quả.",
+    ],
+
+    [
+        // Tư duy sáng tạo.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Tư duy sáng tạo.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn có những ý tưởng cá nhân để giải quyết vấn đề, nhưng đôi khi còn thiếu tính thực tiễn, bạn mang được màu sắc cá nhân nhưng chưa đủ hấp dẫn",
+        "Bạn có nhiều ý tưởng sáng tạo, biết cách kết hợp các yếu tố khác nhau để tạo ra giải pháp mới mẻ và hiệu quả.",
+        "Bạn luôn đưa ra những ý tưởng đột phá và sáng tạo, kết hợp các yếu tố khác nhau một cách hài hòa để tạo ra những giải pháp độc đáo và hiệu quả.",
     ],
     [
-        "Bạn có cái nhìn tổng quát về thuật toán khi tiếp xúc với các dự án và sản phẩm mẫu. Điều này giúp bạn dễ dàng hơn trong việc hiểu các khái niệm phức tạp.",
-        "Bạn phản xạ nhanh với ngôn ngữ code và đã biết chọn lọc vận dụng kiến thức thuật toán để xử lý vấn đề cụ thể. Trong một bài tập, bạn đã sử dụng thuật toán rất hợp lý để tối ưu hóa mã của mình.",
-        "Bạn đã thể hiện khả năng tư duy hệ thống khi giải quyết các bài toán lập trình. Bạn luôn biết cách tiếp cận vấn đề một cách logic và có cấu trúc.",
+        // Thái độ học tập trên lớp.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Thái độ học tập trên lớp.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn chú ý nghe bài giảng nhưng đôi khi còn mất tập trung, cần cải thiện thói quen học tập.",
+        "Bạn chú ý nghe bài giảng tốt, thầy ít phải nhắc nhở trong giờ học.",
+        "Bạn luôn tập trung cao độ trong suốt buổi học, chủ động ghi chép và tham gia thảo luận một cách tích cực.",
     ],
     [
-        "Bạn luôn chú ý lắng nghe bài giảng của thầy, và thầy gần như không phải nhắc nhở bạn. Điều này tạo ra một môi trường học tập tích cực cho cả lớp.",
-        "Bạn chấp hành tốt các quy định và nội quy lớp học, điều này thể hiện sự tôn trọng đối với thầy và bạn bè.",
-        "Thái độ tích cực của bạn trong lớp học đã tạo động lực cho những bạn khác, và điều này rất đáng khen ngợi.",
-    ],
-    [
-        "Bạn rất chủ động trong việc tìm kiếm bài tập và dự án để luyện tập thêm. Việc này giúp bạn củng cố và nâng cao kiến thức đã học.",
-        "Bạn thường xuyên đặt câu hỏi luyện tập với thầy, điều này cho thấy bạn rất nghiêm túc trong việc học hỏi và cải thiện bản thân.",
-        "Sự quyết tâm của bạn trong việc tự học và nghiên cứu thêm không chỉ giúp bạn tiến bộ mà còn tạo cảm hứng cho các bạn khác trong lớp.",
+        // Thái độ luyện tập về nhà.ĐNL ["Trung bình", "Khá", "Giỏi","Xuất sắc"]
+        'Thái độ luyện tập về nhà.ĐNL ["Trung bình", "Khá", "Giỏi","Xuất sắc"]',
+        "Bạn cần cải thiện thói quen làm bài tập về nhà, thường xuyên quên hoặc làm không đầy đủ.",
+        "Bạn hoàn thiện khá các bài tập về nhà được giao, một số bài tập bạn chưa đầu tư kỹ lưỡng dẫn đến kết quả chưa cao",
+        "Bạn luôn hoàn thành đầy đủ và đúng hạn các bài tập về nhà, thể hiện sự nghiêm túc và trách nhiệm trong học tập.",
+        "Bạn học rất chăm chỉ và hoàn thành xuất sắc các bài tập về nhà, thể hiện sự tận tâm và đam mê học tập.",
     ],
 ]
 
@@ -77,6 +95,85 @@ style.textContent = `
             transform: scale(1.05);
         }
     `
+
+const styleFeedback = document.createElement("style")
+styleFeedback.textContent = `
+.mindx-feedback-container {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    max-width: 350px;
+    max-height: 80vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.mindx-feedback-container .box {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    color: #4e4e4e;
+    width: 100%;
+}
+
+.mindx-feedback-container .box .btn {
+    display: flex;
+    gap: 10px;
+}
+
+.mindx-feedback-container .box button:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+.mindx-feedback-container .box button {
+    margin: 10px 0;
+    transition: all 0.2s ease;
+    border: none;
+    outline: none;
+    height: 48px;
+    width: 100%;
+    user-select: none;
+}
+
+.mindx-feedback-container .box button:active {
+    transform: scale(0.95);
+}
+.mindx-feedback-container .box .title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    cursor: default;
+}
+
+.mindx-feedback-container .box .tb {
+    background-color: #ffc107;
+    border-radius: 7px;
+    color: #fff;
+    padding: 10px;
+}
+
+.mindx-feedback-container .box .kha {
+    background-color: #4caf50;
+    border-radius: 7px;
+    color: #fff;
+    padding: 10px;
+}
+
+.mindx-feedback-container .box .gioi {
+    background-color: #2196f3;
+    border-radius: 7px;
+    color: #fff;
+    padding: 10px;
+}
+
+.mindx-feedback-container .box button span {
+    opacity: 0;
+    position: absolute;
+}
+
+`
+
 function createCommentButton(text, color) {
     document.head.appendChild(style)
     const button = document.createElement("button")
@@ -89,14 +186,15 @@ function createCommentButton(text, color) {
 const scoreDemoTB = [0, 1.3, 0.3, 0.7, 0.4, 0.4]
 const scoreDemoK = [0, 1.5, 0.5, 0.8, 0.6, 0.6]
 const scoreDemoG = [0, 1.9, 0.5, 0.9, 0.75, 0.75]
-function testFunc(btn, inputs, demoScore, checkBoxInput, textareas) {
+function testFunc(btn, inputs, bodyContainer, demoValue) {
     if (inputs.length > 45) {
         inputs[45].click() //KHẢO SÁT ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ - DÀNH CHO PHỤ HUYNH
     }
-
+    const demoScore = bodyContainer[0].querySelectorAll("input.MuiInputBase-input.MuiOutlinedInput-input")
     if (demoScore) {
         if (demoScore.length < 3) {
-            demoScore[0].value = 1.5 + 0.6 + 0.3 + 0.6 + 0.3
+            console.log(demoScore[0])
+            demoScore[0].value = demoValue
             demoScore[0].focus()
         } else {
             for (let i = 0; i < 6; i++) {
@@ -105,19 +203,30 @@ function testFunc(btn, inputs, demoScore, checkBoxInput, textareas) {
             }
         }
         let indexOffset = 0
-        for (let i = 0; i < textareas.length; i++) {
-            if (i % 2 === 0) {
-                const randIndex = Math.floor(Math.random() * FEEDBACK_ARRAY[indexOffset].length)
-                textareas[i].value = FEEDBACK_ARRAY[indexOffset][randIndex]
-                indexOffset++
+        const textareas = bodyContainer[0].querySelectorAll("textarea")
+
+        if (textareas.length > 0) {
+            for (let i = 0; i < 17; i++) {
+                if (i % 2 === 0) {
+                    const randIndex = Math.floor(Math.random() * FEEDBACK_ARRAY[indexOffset].length)
+                    textareas[i].innerText = "- " + FEEDBACK_ARRAY[indexOffset][randIndex]
+                    indexOffset++
+                }
             }
         }
     }
+
+    const checkBoxInput = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='checkbox']")
     if (checkBoxInput && checkBoxInput.length > 0) {
         for (let i = 1; i < checkBoxInput.length - 2; i++) {
             if (checkBoxInput[i].checked) continue
             checkBoxInput[i].click() //chọn tất cả các checkbox
         }
+    }
+    // Tự động nhấn nút gửi đánh giá
+    const button = bodyContainer[0].querySelector("button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.jss75.jss77.MuiButton-containedPrimary")
+    if (button) {
+        button.click()
     }
 }
 // Create and append UI elements
@@ -125,7 +234,7 @@ const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         if (mutation.type === "childList") {
             const bodyContainer = document.getElementsByClassName(
-                "MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded"
+                "MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded",
             )
             if (bodyContainer && bodyContainer.length > 0) {
                 // Kiểm tra xem nút đã được thêm chưa để tránh thêm nhiều lần
@@ -139,17 +248,51 @@ const observer = new MutationObserver((mutations) => {
                     commentButtonContainer.appendChild(commentButton1)
                     commentButtonContainer.appendChild(commentButton2)
                     commentButtonContainer.appendChild(commentButton3)
-
+                    const feedbackContainer = document.createElement("div")
+                    feedbackContainer.className = "mindx-feedback-container"
+                    bodyContainer[0].appendChild(feedbackContainer)
+                    document.head.appendChild(styleFeedback)
                     bodyContainer[0].appendChild(commentButtonContainer)
 
+                    let htmlFeedback = ``
+                    for (let index = 0; index < FEEDBACK_ARRAY.length; index++) {
+                        htmlFeedback += ` 
+                                              <div class="box">
+                <p class="title">${FEEDBACK_ARRAY[index][0]}</p>
+                <div class="btn">
+                    <button class="tb">
+                        TB
+                        <span> ${FEEDBACK_ARRAY[index][1]}</span>
+                    </button>
+                    <button class="kha">
+                        Khá
+                        <span> ${FEEDBACK_ARRAY[index][2]}</span>
+                    </button>
+                    <button class="gioi">
+                        Giỏi
+                        <span> ${FEEDBACK_ARRAY[index][3]}</span>
+                    </button>
+                </div>
+            </div>
+                                            `
+                    }
+                    feedbackContainer.innerHTML = htmlFeedback
+
+                    // Thêm sự kiện click cho các đoạn feedback để tự động sao chép vào clipboard
+                    const feedbackBoxes = feedbackContainer.querySelectorAll(".box button")
+                    feedbackBoxes.forEach((p) => {
+                        p.addEventListener("click", () => {
+                            let span = p.querySelector("span")
+                            navigator.clipboard.writeText("- " + span.innerText)
+                        })
+                    })
+
                     const danhgiachung = bodyContainer[0].querySelector(".quill .ql-container p")
-                    const demoScore = bodyContainer[0].querySelectorAll("input.MuiInputBase-input.MuiOutlinedInput-input")
 
                     // học viên ở mức trung bình
                     commentButton1.addEventListener("click", () => {
                         const inputs = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='radio']")
-                        const textareas = bodyContainer[0].querySelectorAll("textarea")
-                        const checkBoxInput = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='checkbox']")
+
                         inputs[3].click() //[COD] Kỹ năng giao tiếp, hợp tác
                         inputs[3 + 5].click() //[COD] Kỹ năng giải quyết vấn đề
                         inputs[3 + 5 * 2].click() //[COD] Kỹ năng sử dụng máy tính
@@ -165,20 +308,18 @@ const observer = new MutationObserver((mutations) => {
                             inputs[3 + 5 * 7 - 1].click() //[COD] Tư duy sáng tạo
                             inputs[3 + 5 * 8].click() //[COD] Tư duy sáng tạo
                         }
-                        testFunc("btn1", inputs, demoScore, checkBoxInput, textareas)
+                        testFunc("btn1", inputs, bodyContainer, 3.3)
                     })
 
                     // học viên ở mức khá
                     commentButton2.addEventListener("click", () => {
                         const inputs = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='radio']")
-                        const textareas = bodyContainer[0].querySelectorAll("textarea")
-                        const checkBoxInput = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='checkbox']")
                         inputs[4 - 1].click() //[COD] Kỹ năng giao tiếp, hợp tác
                         inputs[4 + 4].click() //[COD] Kỹ năng giải quyết vấn đề
                         inputs[4 + 5 * 2 - 1].click() //[COD] Kỹ năng sử dụng máy tính
                         inputs[4 + 5 * 3 - 1].click() //[COD] Thái độ học tập trên lớp
                         inputs[4 + 5 * 4 - 1].click() //[COD] Tư duy máy tính, tư duy thuật toán
-                        inputs[4 + 5 * 5].click() //[COD] Kiến thức học viên đã được học tại lớp
+                        inputs[4 + 5 * 5 - 1].click() //[COD] Kiến thức học viên đã được học tại lớp
                         inputs[4 + 5 * 6 - 1].click() //[COD] Tư duy sáng tạo
                         if (inputs.length > 35) {
                             inputs[4 + 5 * 7 - 1].click() //[COD] Tư duy sáng tạo
@@ -188,14 +329,12 @@ const observer = new MutationObserver((mutations) => {
                             danhgiachung.innerText =
                                 "Bạn có thái độ học tập tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt một số bài tập ở mức dễ và trung bình, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết."
                         }
-                        testFunc("btn2", inputs, demoScore, checkBoxInput, textareas)
+                        testFunc("btn2", inputs, bodyContainer, 4.3)
                     })
 
                     // học viên ở mức giỏi
                     commentButton3.addEventListener("click", () => {
                         const inputs = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='radio']")
-                        const textareas = bodyContainer[0].querySelectorAll("textarea")
-                        const checkBoxInput = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='checkbox']")
                         inputs[5].click() //[COD] Kỹ năng giao tiếp, hợp tác
                         inputs[5 + 5 - 2].click() //[COD] Kỹ năng giải quyết vấn đề
                         inputs[5 + 5 * 2].click() //[COD] Kỹ năng sử dụng máy tính
@@ -211,7 +350,7 @@ const observer = new MutationObserver((mutations) => {
                             danhgiachung.innerText =
                                 "Bạn có thái độ học tập rất tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt các bài tập, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết."
                         }
-                        testFunc("btn3", inputs, demoScore, checkBoxInput, textareas)
+                        testFunc("btn3", inputs, bodyContainer, 4.8)
                     })
                 }
             }
