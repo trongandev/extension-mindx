@@ -191,7 +191,7 @@ function testFunc(btn, inputs, bodyContainer, demoValue) {
         inputs[45].click() //KHẢO SÁT ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ - DÀNH CHO PHỤ HUYNH
     }
     const demoScore = bodyContainer[0].querySelectorAll("input.MuiInputBase-input.MuiOutlinedInput-input")
-    if (demoScore) {
+    if (demoScore.length > 0) {
         if (demoScore.length < 3) {
             console.log(demoScore[0])
             demoScore[0].value = demoValue
@@ -323,7 +323,7 @@ const observer = new MutationObserver((mutations) => {
                         inputs[4 + 5 * 6 - 1].click() //[COD] Tư duy sáng tạo
                         if (inputs.length > 35) {
                             inputs[4 + 5 * 7 - 1].click() //[COD] Tư duy sáng tạo
-                            inputs[4 + 5 * 8].click() //[COD] Tư duy sáng tạo
+                            inputs[4 + 5 * 8 - 1].click() //[COD] Tư duy sáng tạo
                         }
                         if (danhgiachung) {
                             danhgiachung.innerText =
