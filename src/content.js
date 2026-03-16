@@ -293,16 +293,15 @@ const observer = new MutationObserver((mutations) => {
                     commentButton1.addEventListener("click", () => {
                         const inputs = bodyContainer[0].querySelectorAll("span.MuiIconButton-label input[type='radio']")
 
-                        inputs[3].click() //[COD] Kỹ năng giao tiếp, hợp tác
-                        inputs[3 + 5].click() //[COD] Kỹ năng giải quyết vấn đề
-                        inputs[3 + 5 * 2].click() //[COD] Kỹ năng sử dụng máy tính
-                        inputs[3 + 5 * 3 - 1].click() //[COD] Thái độ học tập trên lớp
-                        inputs[3 + 5 * 4].click() //[COD] Tư duy máy tính, tư duy thuật toán
-                        inputs[3 + 5 * 5].click() //[COD] Kiến thức học viên đã được học tại lớp
-                        inputs[3 + 5 * 6].click() //[COD] Tư duy sáng tạo
+                        inputs[2].click() //[COD] Kỹ năng giao tiếp, hợp tác
+                        inputs[2 + 5].click() //[COD] Kỹ năng giải quyết vấn đề
+                        inputs[2 + 5 * 2].click() //[COD] Kỹ năng sử dụng máy tính
+                        inputs[2 + 5 * 2 - 1].click() //[COD] Thái độ học tập trên lớp
+                        inputs[2 + 5 * 4].click() //[COD] Tư duy máy tính, tư duy thuật toán
+                        inputs[2 + 5 * 5].click() //[COD] Kiến thức học viên đã được học tại lớp
+                        inputs[2 + 5 * 6].click() //[COD] Tư duy sáng tạo
                         if (danhgiachung) {
-                            danhgiachung.innerText =
-                                "Bạn có thái độ học tập ở mức khá, có tinh thần học tập cầu tiến tuy nhiên bạn cần cải thiện khả năng tập trung trong giờ học. Bạn đã hoàn thành được một số bài tập về nhà, tuy nhiên cần bổ sung đầy đủ hơn."
+                            danhgiachung.innerText = `- Điểm mạnh: bạn nắm được các kiến thức cơ bản mà thầy hướng dẫn trong lớp, kỹ năng sử dụng máy tính ngày càng cải thiện.                     - Điểm cần cải thiện: bạn cần tập trung hơn trong giờ học và hoàn thành tốt hơn các bài tập về nhà.                     - Lời khuyên: Hãy cố gắng tham gia tích cực hơn trong các hoạt động trên lớp và dành thời gian ôn tập thêm sau mỗi buổi học.`
                         }
                         if (inputs.length > 35) {
                             inputs[3 + 5 * 7 - 1].click() //[COD] Tư duy sáng tạo
@@ -326,8 +325,7 @@ const observer = new MutationObserver((mutations) => {
                             inputs[4 + 5 * 8 - 1].click() //[COD] Tư duy sáng tạo
                         }
                         if (danhgiachung) {
-                            danhgiachung.innerText =
-                                "Bạn có thái độ học tập tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt một số bài tập ở mức dễ và trung bình, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết."
+                            danhgiachung.innerText = `- Điểm mạnh: bạn nắm được các kiến thức cơ bản mà thầy hướng dẫn trong lớp, áp dụng được những kiến thức thầy hướng dẫn vào bài trên lớp, kỹ năng sử dụng máy tính ngày càng cải thiện.                       - Điểm cần cải thiện: Khi áp dụng các kiến thức thầy hướng dẫn vào bài bạn còn gặp một số lỗi nhưng đang dần được cải thiện hơn qua từng buổi.                      - Lời khuyên: Hãy cố gắng tham gia tích cực hơn trong các hoạt động trên lớp và dành thời gian ôn tập thêm sau mỗi buổi học.`
                         }
                         testFunc("btn2", inputs, bodyContainer, 4.3)
                     })
@@ -347,8 +345,7 @@ const observer = new MutationObserver((mutations) => {
                             inputs[5 + 5 * 8 - 1].click() //[COD] Tư duy sáng tạo
                         }
                         if (danhgiachung) {
-                            danhgiachung.innerText =
-                                "Bạn có thái độ học tập rất tốt, có tinh thần học tập cầu tiến. Bạn hoàn thành được tốt các bài tập, khi gặp khó khăn bạn đã biết hỏi giáo viên và bạn bè để tìm ra cách giải quyết."
+                            danhgiachung.innerText = `- Điểm mạnh: bạn nắm được rất tốt các kiến thức mà thầy hướng dẫn trong lớp, áp dụng được những kiến thức thầy hướng dẫn vào bài trên lớp, kỹ năng sử dụng máy tính ngày càng cải thiện, bạn biết sử dụng các công cụ hỗ trợ học tập.                     - Điểm cần cải thiện: bạn cần cố gắng sôi nổi hơn trong các hoạt động trên lớp.                     - Lời khuyên: Hãy cố gắng tham gia tích cực hơn trong các hoạt động trên lớp và dành thời gian ôn tập thêm sau mỗi buổi học.`
                         }
                         testFunc("btn3", inputs, bodyContainer, 4.8)
                     })
