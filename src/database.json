@@ -5,11 +5,11 @@
         "CAR": [
             {
                 "section": "Buổi 1",
-                "lession_content": "Ngôn ngữ máy là gì\nNgôn ngữ lập trình bậc cao là gì\nGiới thiệu và cài đặt môi trường lập trình Python\nMột số câu lệnh Python đầu tiên"
+                "lession_content": "NGÔN NGỮ MÁY LÀ GÌ\nNgôn ngữ lập trình bậc cao là gì\nGiới thiệu và cài đặt môi trường lập trình Python\nMột số câu lệnh Python đầu tiên"
             },
             {
                 "section": "Buổi 2",
-                "lession_content": "Tìm hiểu biến\nCác từ khóa Python cơ bản\nQuy tắc đặt tên biến trong Python\nCác kiểu dữ liệu trong Python\nÉp kiểu dữ liệu"
+                "lession_content": "TÌM HIỂU BIẾN\nCác từ khóa Python cơ bản\nQuy tắc đặt tên biến trong Python\nCác kiểu dữ liệu trong Python\nÉp kiểu dữ liệu"
             },
             {
                 "section": "Buổi 3",

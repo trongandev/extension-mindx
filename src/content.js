@@ -35,6 +35,13 @@ const FEEDBACK_ARRAY = [
         "Tốc độ gõ của bạn rất nhanh và chính xác. Bạn đã sử dụng thành thạo các phím tắt nâng cao để tăng hiệu quả làm việc trên máy tính.",
     ],
     [
+        // Tư duy sáng tạo.ĐNL ["Trung bình", "Khá", "Giỏi"]
+        'Tư duy sáng tạo.ĐNL ["Trung bình", "Khá", "Giỏi"]',
+        "Bạn có những ý tưởng cá nhân để giải quyết vấn đề, nhưng đôi khi còn thiếu tính thực tiễn, bạn mang được màu sắc cá nhân nhưng chưa đủ hấp dẫn",
+        "Bạn có nhiều ý tưởng sáng tạo, biết cách kết hợp các yếu tố khác nhau để tạo ra giải pháp mới mẻ và hiệu quả.",
+        "Bạn luôn đưa ra những ý tưởng đột phá và sáng tạo, kết hợp các yếu tố khác nhau một cách hài hòa để tạo ra những giải pháp độc đáo và hiệu quả.",
+    ],
+    [
         // Tư duy máy tính.ĐNL, hợp tác.ĐNL ["Trung bình", "Khá", "Giỏi"]
         'Tư duy máy tính.ĐNL, hợp tác.ĐNL ["Trung bình", "Khá", "Giỏi"]',
         "Bạn có cái nhìn tổng quan về sản phẩm khi tiếp tiếp xúc với dự án mới, tuy nhiên còn gặp khó khăn trong lúc sửa các lỗi nhỏ.",
@@ -42,13 +49,6 @@ const FEEDBACK_ARRAY = [
         "Bạn nhanh chóng nắm bắt được yêu cầu của dự án mới và có khả năng phát hiện, sửa chữa các lỗi nhỏ một cách hiệu quả.",
     ],
 
-    [
-        // Tư duy sáng tạo.ĐNL ["Trung bình", "Khá", "Giỏi"]
-        'Tư duy sáng tạo.ĐNL ["Trung bình", "Khá", "Giỏi"]',
-        "Bạn có những ý tưởng cá nhân để giải quyết vấn đề, nhưng đôi khi còn thiếu tính thực tiễn, bạn mang được màu sắc cá nhân nhưng chưa đủ hấp dẫn",
-        "Bạn có nhiều ý tưởng sáng tạo, biết cách kết hợp các yếu tố khác nhau để tạo ra giải pháp mới mẻ và hiệu quả.",
-        "Bạn luôn đưa ra những ý tưởng đột phá và sáng tạo, kết hợp các yếu tố khác nhau một cách hài hòa để tạo ra những giải pháp độc đáo và hiệu quả.",
-    ],
     [
         // Thái độ học tập trên lớp.ĐNL ["Trung bình", "Khá", "Giỏi"]
         'Thái độ học tập trên lớp.ĐNL ["Trung bình", "Khá", "Giỏi"]',
