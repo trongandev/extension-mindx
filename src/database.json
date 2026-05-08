@@ -1048,5 +1048,19 @@
                 "lession_content": "Thuyết trình Robot\nThuyết trình cuối khóa."
             }
         ]
+    },
+    {
+        "name": "ai",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "Giới thiệu mục tiêu Level 2 và sản phẩm cuối khóa.\nLàm quen Google Al Studio như công cụ học tập và xây nền tảng ôn tập.\nChọn 1 môn học/chủ đề thật để phát triển xuyên suốt khóa.\nXác định các đầu ra chính của nền tảng: tóm tắt, sơ đồ kiến thức, quiz, flashcard, Q&A.\nKhởi tạo phiên bản đầu tiên của nền tảng trên Google Al Studio Build App.\nHình thành nguyên tắc dùng AI đúng cách, có kiểm chứng và có trách nhiệm.\nTrong phạm vi khóa học, học viên chọn 1 môn/chủ đề làm trọng tâm để phát triển sản phẩm; sau\nkhi kết thúc khóa, nền tảng có thể tiếp tục mở rộng thêm nhiều môn/chủ đề khác để ôn luyện."
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "Thu thập học liệu từ text, ảnh chụp vở/tài liệu, URL theo đúng chủ đề đã chọn.\nLàm rõ luồng text-first: text là nguồn ổn định nhất cho grounded Al ở giai đoạn này.\nXây dựng khu vực nhập học liệu của nền tảng ôn tập.\nTổ chức nguồn học liệu theo chủ đề và lưu bằng LocalStorage.\nTạo màn hình preview để Al thể hiện: ý chính, từ khóa, phạm vi kiến thức.\nKiểm tra xem Ai hiểu đúng hay chưa; bổ sung hoặc chỉnh nguồn nếu cần.\nLàm rõ nguyên tắc nhập học liệu an toàn, phù hợp, không đưa dữ liệu riêng tư hoặc tài liệu không rõ\nnguồn."
+            }
+        ]
     }
 ]
