@@ -326,8 +326,10 @@ const observer = new MutationObserver((mutations) => {
                 let findCodeClass = document.querySelector("h6.MuiTypography-root.MuiTypography-h6.css-1anx036").innerText.split(" ")[0].split("-")
                 let lenghtCode = findCodeClass.length
                 let code = ""
-                if (findCodeClass[1] === "AI4L2") {
-                    code = "AI"
+                if (findCodeClass[1] === "AI4L1") {
+                    code = "AI4L1"
+                } else if (findCodeClass[1] === "AI4L2") {
+                    code = "AI4L2"
                 } else {
                     code = lenghtCode === 3 ? findCodeClass[2].replace(/\d/g, "") : lenghtCode === 2 ? findCodeClass[1].replace(/\d/g, "") : ""
                 }

@@ -1050,16 +1050,248 @@
         ]
     },
     {
-        "name": "ai",
+        "name": "ai4l2",
         "date": "2026",
         "CAR": [
             {
                 "section": "Buổi 1",
-                "lession_content": "Giới thiệu mục tiêu Level 2 và sản phẩm cuối khóa.\nLàm quen Google Al Studio như công cụ học tập và xây nền tảng ôn tập.\nChọn 1 môn học/chủ đề thật để phát triển xuyên suốt khóa.\nXác định các đầu ra chính của nền tảng: tóm tắt, sơ đồ kiến thức, quiz, flashcard, Q&A.\nKhởi tạo phiên bản đầu tiên của nền tảng trên Google Al Studio Build App.\nHình thành nguyên tắc dùng AI đúng cách, có kiểm chứng và có trách nhiệm.\nTrong phạm vi khóa học, học viên chọn 1 môn/chủ đề làm trọng tâm để phát triển sản phẩm; sau\nkhi kết thúc khóa, nền tảng có thể tiếp tục mở rộng thêm nhiều môn/chủ đề khác để ôn luyện."
+                "lession_content": "VIBE CODE & GOOGLE AI STUDIO\nGiới thiệu mục tiêu Level 2 và sản phẩm cuối khóa.\nLàm quen Google Al Studio như công cụ học tập và xây nền tảng ôn tập.\nChọn 1 môn học/chủ đề thật để phát triển xuyên suốt khóa.\nXác định các đầu ra chính của nền tảng: tóm tắt, sơ đồ kiến thức, quiz, flashcard, Q&A.\nKhởi tạo phiên bản đầu tiên của nền tảng trên Google Al Studio Build App.\nHình thành nguyên tắc dùng AI đúng cách, có kiểm chứng và có trách nhiệm.\nTrong phạm vi khóa học, học viên chọn 1 môn/chủ đề làm trọng tâm để phát triển sản phẩm; sau\nkhi kết thúc khóa, nền tảng có thể tiếp tục mở rộng thêm nhiều môn/chủ đề khác để ôn luyện."
             },
             {
                 "section": "Buổi 2",
-                "lession_content": "Thu thập học liệu từ text, ảnh chụp vở/tài liệu, URL theo đúng chủ đề đã chọn.\nLàm rõ luồng text-first: text là nguồn ổn định nhất cho grounded Al ở giai đoạn này.\nXây dựng khu vực nhập học liệu của nền tảng ôn tập.\nTổ chức nguồn học liệu theo chủ đề và lưu bằng LocalStorage.\nTạo màn hình preview để Al thể hiện: ý chính, từ khóa, phạm vi kiến thức.\nKiểm tra xem Ai hiểu đúng hay chưa; bổ sung hoặc chỉnh nguồn nếu cần.\nLàm rõ nguyên tắc nhập học liệu an toàn, phù hợp, không đưa dữ liệu riêng tư hoặc tài liệu không rõ\nnguồn."
+                "lession_content": "INPUT SOURCES & AI ANALYIS\nThu thập học liệu từ text, ảnh chụp vở/tài liệu, URL theo đúng chủ đề đã chọn.\nLàm rõ luồng text-first: text là nguồn ổn định nhất cho grounded Al ở giai đoạn này.\nXây dựng khu vực nhập học liệu của nền tảng ôn tập.\nTổ chức nguồn học liệu theo chủ đề và lưu bằng LocalStorage.\nTạo màn hình preview để Al thể hiện: ý chính, từ khóa, phạm vi kiến thức.\nKiểm tra xem Ai hiểu đúng hay chưa; bổ sung hoặc chỉnh nguồn nếu cần.\nLàm rõ nguyên tắc nhập học liệu an toàn, phù hợp, không đưa dữ liệu riêng tư hoặc tài liệu không rõ\nnguồn."
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "AI CONTENT GENERATION\nDùng Al tạo summary và key points theo đúng phạm vi chủ đề.\nTạo bộ câu hỏi luyện tập ở mức cơ bản theo nhiều dạng: đúng/sai, lựa chọn, điền từ ngắn, hỏi – đáp ngắn.\nTạo flashcard hoặc bộ ghi nhớ nhanh theo từ khóa/khái niệm/công thức.\nTạo Q&A seed để chuẩn bị cho chatbot hỗ trợ ôn bài sau này.\nLưu toàn bộ output vào LocalStorage.\nRèn thói quen chọn lọc, kiểm chứng, chỉnh sửa output Al trước khi dùng học thật.\nTăng chuẩn chất lượng: study pack phải bám kiến thức cốt lõi, tránh quá nông hoặc quá meta."
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "QUIZ MODE & FLASHCARD UI\nTổ chức dữ liệu câu hỏi và flashcard thành trải nghiệm ôn tập rõ ràng, dễ dùng.\nHoàn thiện Quiz Mode với phản hồi đáp án cơ bản và score đúng.\nHoàn thiện Flashcard Mode để lật thẻ và ôn nhanh theo chủ đề.\nBổ sung thao tác thêm/sửa/xóa câu hỏi và flashcard.\nTinh chỉnh trình bày theo thế mạnh người học: trực quan cho khối art, logic – tương tác cho khối công nghệ.\nTiếp tục nhấn mạnh: Al hỗ trợ tạo nội dung, nhưng con người quyết định chọn và chỉnh nội dung để học thật.\nThêm bước kiểm thử scoring để tránh lỗi logic “UI đúng nhưng điểm sai\"."
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "CHATBOT, SAVE/LOAD & RE-GENERATE\nTạo trợ lý hỏi-đáp hỗ trợ ôn bài trong phạm vi chủ đề đã chọn.\nHoàn thiện phiên bản lưu trữ bảo quản sản phẩm để lần sau học lại được.\nDùng Re-Generate để tạo phiên bản ôn tập mới từ cùng nguồn gốc.\nSo sánh phiên bản cũ và mới để thấy giá trị của việc ôn luyện nhiều vòng.\nThảo luận khi nào Al hỗ trợ học là đúng, khi nào là làm hộ không phù hợp."
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "POLISH, TESTING & SHOWCASE\nRà soát toàn bộ hệ thống ôn tập đã tạo trong 5 buổi trước.\nHoàn thiện sản phẩm theo định dạng phù hợp: interactive, visual hoặc portfolio học tập.\nKiểm thử bằng một phiên ôn tập thật trên chính chủ đề đã chọn.\nChuẩn bị phần trình bày: Al đã giúp tổng hợp, hệ thống hóa và làm chủ kiến thức ra sao.\nTổng kết nguyên tắc dùng Al an toàn, trung thực, có trách nhiệm trong học tập.\n"
+            }
+        ]
+    },
+    {
+        "name": "ai4l",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "SÁNG TẠO HÌNH ẢNH VỚI AI\nGiới thiệu tổng quan khóa học Al for Learn và đưa ra nội quy của lớp học.\nTìm hiểu khái niệm cơ bản về Trí tuệ nhân tạo (AI), các phân loại Al.\nTìm hiểu về ứng dụng Al trong học tập.\nTìm hiểu về trách nhiệm khi sử dụng Al.\nThực hành tạo lập tài khoản Gmail.\nThực hành sử dụng công cụ ChatGPT/Gemini để sáng tạo hình ảnh."
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "THỰC HÀNH: TẠO HÌNH ẢNH BẰNG NANO BANANA\nTìm hiểu storybook và các bước xây dựng storybook.\nTìm hiểu về các thành phần nhân vật và cốt truyện trong storybook.\nTìm hiểu về công cụ Gemini Storybook.\nPhân tích Prompt xây dựng Storybook.\nThực hành sử dụng công cụ để sáng tạo một Storybook hoàn chỉnh với cốt truyện có ý nghĩa."
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "LÀM CHỦ SLIDE THUYẾT TRÌNH VỚI AI\nTìm hiểu infographic và lợi ích của infographic trong học tập.\nPhân tích Prompt xây dựng Storybook bằng Nano Banana 2.\nTìm hiểu về công cụ NotebookLM.\nThực hành tải file để xây dựng sổ ghi chú trên NotebookLM.\nThực hành sử dụng công cụ để sáng tạo một infographic hoàn chỉnh."
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "THỰC HÀNH: TẠO SLIDE BẰNG NOTEBOOKLM\nTìm hiểu về slide thuyết trình và lợi ích của slide thuyết trình trong ghi nhớ kiến thức.\nPhân tích Prompt xây dựng slide thuyết trình bằng NotebookLM.\nÔn tập công cụ NotebookLM.\nThực hành sử dụng công cụ để sáng tạo một slide thuyết trình hoàn chỉnh."
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "CHINH PHỤC VIDEO VỚI AL\nÝ nghĩa của video ngắn trong việc truyền tải thông tin.\nTìm hiểu các yếu tố cần thiết để xây dựng kịch bản cho một video ngắn.\nGiới thiệu một số công cụ Al tạo và chỉnh sửa video.\nTìm hiểu cách viết prompt tạo video.\nThực hành tạo video đơn giản bằng Veo 3."
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "THỰC HÀNH: TẠO VIDEO BẰNG FLOW\nThực hành xây dựng kịch bản cho một video ngắn từ chủ đề đã chọn.\nThực hành tạo video từ kịch bản trên bằng Flow."
+            }
+        ]
+    },
+    {
+        "name": "SB",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "AI TRONG HỌC TẬP\nTìm hiểu tổng quan khóa học Scratch Basic, các mốc thời gian quan trọng và nội quy lớp học.\nTìm hiểu về cấu trúc tuần tự trong tư duy máy tính thông qua trò chơi Rapid Router.\nTìm hiểu về vai trò của ngôn ngữ lập trình và các sản phẩm lập trình trong cuộc sống.\nLàm quen với môi trường lập trình Scratch (Raise).\nTìm hiểu và thực hành khởi tạo nhân vật và phông nền.\nThực hành thiết kế căn phòng của em.\nTìm hiểu cách quản lý dự án thông qua quản lý file."
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "THIỆP MỪNG SINH NHẬT\nTìm hiểu về kỷ nguyên số hoá các công việc thông dụng trong cuộc sống.\nTìm hiểu về các trang phục của nhân vật, các thẻ lệnh tương tác với trang phục và chức năng của các trang phục.\nTìm hiểu về âm thanh, cách thêm âm thanh và các thẻ lệnh tương tác với âm thanh trong Scratch.\nTìm hiểu vòng lặp với số lần biết trước và vòng lặp liên tục trong nhóm lệnh Control.\nThực hành tạo hành động của nhân vật và thêm âm thanh vào dự án.\nThực hành thiết kế thiệp chúc mừng sinh nhật và nhân vật gửi lời chúc đến người nhận."
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "GÀ MẸ TÌM CON\nTìm hiểu về tập tính của loài gà và công việc chăm con của gà mái.\nTìm hiểu về hướng của nhân vật, các hướng cơ bản và các thẻ lệnh để điều chỉnh hướng của nhân vật trong Scratch.\nTìm hiểu về câu lệnh rẽ nhánh, ứng dụng của câu lệnh rẽ nhánh trong thực tế.\nTìm hiểu về điều kiện và giá trị trả về từ điều kiện trong Scratch.\nThực hành sử dụng thẻ lệnh kiểm tra va chạm giữa hai nhân vật.\nThực hành lập trình dự án \"Gà mẹ tìm con\"."
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "GIAO THÔNG AN TOÀN\nTìm hiểu về các hậu quả của tai nạn giao thông và các biện pháp tham gia giao thông an toàn.\nTìm hiểu về biến, ứng dụng của biến và các thẻ lệnh tương tác với biến trong Scratch.\nThực hành sử dụng biến để đếm số lần nhấn chuột.\nTìm hiểu về sự kiện nhấn phím trong Scratch.\nThực hành lập trình điều khiển nhân vật thông qua các phím điều hướng.\nÔn tập câu điều kiện, tìm hiểu về điều kiện lồng và các thẻ lệnh kết hợp điều kiện trong Scratch Thực hành lập trình dự án \"Giao thông an toàn\"."
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "WORKSHOP KỸ NĂNG\nThực hiện bài kiểm tra định kỳ làn 1 - checkpoint 1\nTìm hiểu về tầm quan trọng của hình ảnh trong dự án.\nTìm hiểu về công cụ Al tạo hình ảnh.\nThực hành viết prompt để tạo hình ảnh."
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "BẢO VỆ KHỦNG LONG\nTìm hiểu về các loài khủng long và nguyên nhân tuyệt chủng của khủng long.\nTìm hiểu về tạo bản sao, cơ chế của tạo bản sao và các thẻ lệnh để tạo, tương tác với bản sao trong Scratch.\nThực hành dùng cơ chế bản sao để lập trình tạo hiệu ứng bóng bay.\nThực hành sử dụng cơ chế tạo bản sao để tạo nhiều thiên thạch.\nThực hành tạo trò chơi \"Bảo vệ Khủng long\"."
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "ĐẠI CHIẾN TRÊN KHÔNG TRUNG PHẦN 1\nTìm hiểu về chiến thắng Điện Biên Phủ trên không (1972) và anh hùng Phạm Tuân.\nTìm hiểu về các hiệu ứng trong Scratch.\nThực hành tạo hiệu ứng ẩn/hiện nhân vật bằng các hiệu ứng trong Scratch.\nThực hành lập trình dự án \"Đại chiến không trung\"."
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "ĐẠI CHIẾN TRÊN KHÔNG TRUNG PHẦN 2\nTìm hiểu về vai trò của màn hình chờ, màn hình bắt đầu và màn hình kết thúc trò chơi.\nTìm hiểu về phát tin - nhận tin và ứng dụng của phát tin - nhận tin trong Scratch.\nThực hành tạo giao diện bắt đầu và giao diện kết thúc cho trò chơi.\nThực hành lập trình tăng độ khó cho trò chơi.\nThực hành lập trình hoàn thiện dự án \"Đại chiến không trung\"."
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "CÔNG XƯỞNG PHÁT MINH\nThực hiện bài kiểm tra định lần 2 - checkpoint 2.\nTìm hiểu tiêu chí đánh giá sản phẩm cuối khoá.\nThực hành tìm kiếm ý tưởng xây dựng dự án cá nhân."
+            },
+            {
+                "section": "Buổi 10",
+                "lession_content": "DỰ ÁN CỦA EM (Phần 1)\nThực hiện lập trình cho dự án"
+            },
+            {
+                "section": "Buổi 11",
+                "lession_content": "DỰ ÁN CỦA EM (Phần 2)\nThực hiện lập trình cho dự án"
+            },
+            {
+                "section": "Buổi 12",
+                "lession_content": "DỰ ÁN CỦA EM (Phần 3)\nThực hiện lập trình cho dự án"
+            },
+            {
+                "section": "Buổi 13",
+                "lession_content": "NGHIỆM THU SẢN PHẨM\nHoàn thiện và đóng gói sản phẩm\nThiết kế bài trình chiếu hỗ trợ thuyết trình"
+            },
+            {
+                "section": "Buổi 14",
+                "lession_content": "THUYẾT TRÌNH CUỐI KHÓA\nThực hiện thuyết trình cuối khóa"
+            }
+        ]
+    },
+    {
+        "name": "SA",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "AI TRONG CUỘC SỐNG\nGiới thiệu tổng quan khoá học Scratch Advanced, các mốc thời gian quan trọng và nhắc lại nội quy của lớp học.\nÔn tập các khái niệm cơ bản về Scratch Basic.\nTìm hiểu về ứng dụng của Al trong các mặt của cuộc sống.\nTìm hiểu về nhà thông minh và xy hướng của tương lai.\nLập trình xây dựng các chức năng cho dự án \"Nhà thông minh\"\n"
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "HÀNH TRÌNH BÍ NGÔ (PHẦN 1)\nTìm hiểu về sự công việc của người nông dân khi trồng và thu hoạch Bí ngô.\nThực hành phân tích dự án \"Hành trình bí ngô\".\nThực hành lập trình tạo giao diện cho trò chơi.\nThực hành lập trình điều khiến nhân vật bằng các phím WASD và xử lý hướng đi xéo cho nhân vật chính.\nThực hành lập trình cho các nhân vật phụ cho trò chơi."
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "HÀNH TRÌNH BÍ NGÔ (PHẦN 2)\nTìm hiểu về hiệu ứng hover và công dụng của hiệu ứng hover.\nThực hành lập trình tạo hiệu ứng Hover cho các nút tại giao diện Menu.\nThực hành tạo cơ chế điểm số cho dự án và sự kiện kết thúc trò chơi.\nThực hành tạo các hiệu ứng di chuyển cho các nhân vật.\nÔn tập và thực hiện tạo hiệu ứng ẩn hiện cho các nhân vật."
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "HÀNH TRÌNH BÍ NGÔ (PHẦN 3)\nTìm hiểu về List (Danh sách) và cấu tạo của List\nTìm hiểu về các thẻ lệnh tương tác với List.\nThực hành lập trình thêm xóa sửa các phần tử trong List.\nThực hành tạo bảng xếp hạng cho dự án.\nThực hành tạo lưu lại điểm số cho dự án và chức năng tìm ra người chơi có điểm số cao nhất.\nThực hành xử lý âm thanh nền và âm thanh va chạm cho dự án.\nThực hành tạo giao diện Setting."
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "WORKSHOP KỸ NĂNG\nTìm hiểu về Trí tuệ nhân tạo (AI).\nTìm hiểu về ứng dụng của Al trong cuộc sống.\nTìm hiểu về Teachable Machine và cách để training model Al.\nTìm hiểu về Dataset, tầm quan trọng của Dataset và các tiêu chí của Dataset giúp\ntraining model Al tốt hơn.\nThực hành training model Al với dataset được lấy từ webcam.\nThực hiện checkpoint 1."
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "CHINH PHỤC VŨ MÔN (PHẦN 1)\nTìm hiểu về văn hoá \"Cá chép vượt Vũ Môn\".\nTìm hiểu về dự án \"Chinh phục Vũ Môn\".\nThực hiện tranining model Al điều khiển nhân vật cá chép.\nThực hành sử dụng các thông số trả về từ model Al để lập trình điều khiển nhân vật cá chép."
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "CHINH PHỤC VŨ MÔN (PHẦN 2)\nÔn tập cách viết prompt hiệu quả.\nThực hành tìm kiếm, xây dựng các tài nguyên cho dự án.\nThực hành lập trình cho các chướng ngại vật.\nThực hành xử lý va chạm cho các chướng ngại vật."
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "CHINH PHỤC VŨ MÔN (PHẦN 3)\nThực hành lập trình tăng tiến độ khó cho trò chơi.\nThực hành thêm các vật phẩm khác cho trò chơi.\nThực hành tạo giao diện và đóng gói trò chơi."
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "CÔNG XƯỞNG PHÁT MINH\nTìm hiểu về tiêu chỉ đánh giá sản phẩm cuối khoá.\nThực hiện tìm kiếm ý tưởng xây dựng dự án cá nhân.\nThực hiện checkpoint 2."
+            },
+            {
+                "section": "Buổi 10",
+                "lession_content": "DỰ ÁN CỦA EM (PHẦN 1)\nThực hiện lập trình cho dự án."
+            },
+            {
+                "section": "Buổi 11",
+                "lession_content": "DỰ ÁN CỦA EM (PHẦN 2)\nThực hiện lập trình cho dự án."
+            },
+            {
+                "section": "Buổi 12",
+                "lession_content": "DỰ ÁN CỦA EM (PHẦN 3)\nThực hiện lập trình cho dự án."
+            },
+            {
+                "section": "Buổi 13",
+                "lession_content": "NGHIỆM THU SẢN PHẨM\nThiết kế slide thuyết trình dự án.\nThực hiện thuyết trình thử dự án\nĐóng góp ý kiến và sửa lỗi dự án.\nThuyết trình giới thiệu dự án cuối khoá."
+            },
+            {
+                "section": "Buổi 14",
+                "lession_content": "THUYẾT TRÌNH CUỐI KHOẢ\nNhận xét, đánh giá và trao giải."
+            }
+        ]
+    },
+    {
+        "name": "SI",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "AI TRONG HỌC TẬP\nGiới thiệu tổng quan khoá học Scratch Intensive, các mốc thời gian quan trọng và nhắc lại nội quy của lớp học.\nThực hiện ôn tập các kiến thức cơ bản về Scratch.\nTìm hiểu các công cụ AI hỗ trợ xây dựng dự án từ hỗ trợ ý tưởng đến xây dựng các tài nguyên cho dự án."
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "CÔNG XƯỞNG PHÁT MINH\nTìm hiểu về quy trình tạo ra một sản phẩm Scratch.\nVận dụng các công cụ AI để hỗ trợ Tìm kiếm ý tưởng cho dự án cá nhân.\nTìm hiểu về bảng tiêu chí đánh giá dự án cá nhân.\nThực hiện Tìm kiếm ý tưởng cho sản phẩm cuối khóa.\nTìm hiểu các công cụ hỗ trợ quản lý dự án và xây dựng timeline cho dự án."
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "TÀI NGUYÊN CHO DỰ ÁN\nThực hiện lên kế hoạch, liệt kê các tài nguyên cần dùng cho dự án.\nTìm hiểu về các nguồn cung cấp các tài nguyên cho dự án.\nTìm hiểu về cách viết prompt hiệu quả để model AI có thể generate hình ảnh tốt hơn.\nThực hiện tìm kiếm, tạo ra các tài nguyên cho dự án cá nhân.\nLập tình các tính năng chính cho dự án."
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "GIAO DIỆN CHO DỰ ÁN\nTìm hiểu về vai trò của sơ dồ giao diện dự án.\nThực hiện phác thảo sơ đồ giao diện với các thành phần cơ bản như Guide, Màn chơi chính, ...\nThực hiện lập trình giao diện bắt đầu cho dự án.\nTìm hiểu về hiệu ứng nhấn chuột được thao tác trên giao diện bắt đầu.\nThực hiện lập trình hiệu ứng nhấn chuột cho giao diện."
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "BÁO CÁO TIẾN ĐỘ LẦN 1\nĐánh giá tiến độ dự án.\nThẩm định độ khả thi của sản phẩm."
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "TEXT TO SPEECH\nTìm hiểu về extension Text to Speech.\nỨng dụng Text to Speech để tạo hiệu ứng âm thanh bắt đầu kết thúc, phần hướng dẫn cho dự án, storyline của dự án,\nLập trình các tính năng chính của dự án."
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "HIỆU ỨNG PHÁ HUỶ\nÔn tập về cơ chế phát tin – nhận tin.\nÔn tập về cơ chế tạo bản sao.\nÔn tập các hiệu ứng ẩn nhân vật.\nTìm hiểu về các cách xử lý hiệu ứng để ẩn nhân vật.\nThực hiện lập trình tạo hiệu ứng phá huỷ nhân vật."
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "HIỆU ỨNG BẮT ĐẦU KẾT THÚC\nTìm hiểu về thông báo bắt đầu trò chơi và kết thúc trò chơi.\nThực hành lập trình tạo thông báo bắt đầu và kết thúc trò chơi.\nLập trình các tính năng chính của dự án."
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "BÁO CÁO TIẾN ĐỘ LẦN 2\nĐánh giá tiến độ dự án.\nThẩm định độ khả thi của sản phẩm."
+            },
+            {
+                "section": "Buổi 10",
+                "lession_content": "DỰ ÁN CỦA EM (PHẦN 1)\nThực hiện các chức năng nâng cao của dự án."
+            },
+            {
+                "section": "Buổi 11",
+                "lession_content": "DỰ ÁN CỦA EM (PHẦN 2)\nThực hiện các chức năng nâng cao của dự án."
+            },
+            {
+                "section": "Buổi 12",
+                "lession_content": "DỰ ÁN CỦA EM (PHẦN 3)\nThực hiện các chức năng nâng cao của dự án."
+            },
+            {
+                "section": "Buổi 13",
+                "lession_content": "NGHIỆM THU SẢN PHẨM\nThiết kế slide thuyết trình sản phẩm.\nThuyết trình thử sản phẩm.\nGóp ý và sửa lỗi."
+            },
+            {
+                "section": "Buổi 14",
+                "lession_content": "THUYẾT TRÌNH CUỐI KHOÁ\nThuyết trình giới thiệu sản phẩm cuối khóa.\nNhận xét, đánh giá và trao giải."
             }
         ]
     }
