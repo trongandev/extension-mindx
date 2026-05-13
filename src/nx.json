@@ -38,7 +38,7 @@
         "chưa chú ý đến việc đặt tên biến nhất quán, đôi khi dùng tiếng việt có dấu hoặc tên quá ngắn gây khó hiểu",
         "kỹ năng ước lượng độ phức tạp của bài toán còn hạn chế, dễ bị bất ngờ khi gặp case đặc biệt",
         "chưa tận dụng hết tính năng của ide như autocomplete, refactor, debugger tích hợp để làm việc hiệu quả hơn",
-        "đôi khi giải quyết triệu chứng thay vì tìm nguyên nhân gốc rễ khi debug, khiến lỗi tái xuất hiện",
+        "bạn chưa sửa được lỗi logic phức tạp mà chỉ sửa được lỗi cú pháp đơn giản, cần rèn thêm kỹ năng debug",
         "cần rèn thêm khả năng làm việc khi không có kết nối internet, không quá phụ thuộc vào tra cứu liên tục",
         "chưa có thói quen backup và lưu trữ code thường xuyên, dễ mất công sức khi gặp sự cố",
         "kỹ năng trình bày ý tưởng kỹ thuật bằng ngôn ngữ đơn giản cho người không biết lập trình còn cần trau dồi"

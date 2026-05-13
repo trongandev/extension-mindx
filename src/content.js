@@ -475,7 +475,7 @@ function createSelectableGroup({ state, options, container, groupName, placehold
                             ${optionMarkup}
                         </select>
                         <button type="button" class="mindx-comment-extension-delete btn-small" data-action="remove-${groupName}" data-index="${index}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
                         </button>
                     </div>
                 `
@@ -733,150 +733,205 @@ function setupDialogPanel(rootNode) {
             const panel = document.createElement("div")
             panel.id = "mindx-comment-extension-panel"
             panel.innerHTML = `
-            <div class="">
+            <div class="mindx-extension-wrapper">
                 <style>
+                    .mindx-extension-wrapper {
+                        background: #ffffff;
+                        border: 1px solid #e0e6ed;
+                        border-radius: 12px;
+                        padding: 16px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                        margin: 10px 0;
+                    }
                     .strength {
-                        font-size: 16px;
-                        font-weight: bold;
-                        margin-bottom: 8px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
                         color: #007bff;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
                     }
                     .improve {
-                        font-size: 16px;
-                        font-weight: bold;
-                        margin-bottom: 8px;
-                        color: #ffc107;
+                        font-size: 15px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
+                        color: #f39c12;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
                     }
                     .advice {
-                        font-size: 16px;
-                        font-weight: bold;
-                        margin-bottom: 8px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
                         color: #28a745;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
                     }
-          
+                    
                     select {
                         max-width: 200px;
+                        width: 100%;
+                    }
+                    select[name^="mindx-comment-extension-"] {
                         padding: 8px 12px;
-                        border: 1px solid #d0d0d0;
-                        border-radius: 6px;
+                        border: 1px solid #dcdfe6;
+                        border-radius: 8px;
                         font-size: 14px;
                         font-family: inherit;
-                        background-color: white;
+                        background-color: #fdfdfd;
                         cursor: pointer;
-                        transition: all 0.3s ease;
+                        transition: all 0.2s ease;
+                        color: #333;
+                        appearance: none;
+                        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+                        background-repeat: no-repeat;
+                        background-position: right 10px center;
+                        background-size: 16px;
+                        padding-right: 36px;
                     }
 
-                    select:hover {
-                        border-color: #999;
-                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    select[name^="mindx-comment-extension-"]:hover {
+                        border-color: #b4bccc;
+                        background-color: #fff;
                     }
 
-                    select:focus {
+                    select[name^="mindx-comment-extension-"]:focus {
                         outline: none;
-                        border-color: #0066cc;
-                        box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+                        border-color: #007bff;
+                        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
                     }
 
                     button {
-                        padding: 8px 12px;
-                        border: 1px solid #d0d0d0;
-                        border-radius: 6px;
+                        padding: 8px;
+                        border: none;
+                        border-radius: 8px;
                         color: white;
                         cursor: pointer;
-                        transition: all 0.3s ease;
-                        display: flex;
+                        transition: all 0.2s ease;
+                        display: inline-flex;
                         align-items: center;
                         justify-content: center;
+                        background-color: transparent;
                     }
 
                     .btn-small {
-                        padding: 4px 8px !important;
-                        font-size: 10px !important;
-                    }
-
-                    button:hover {
-                        background-color: #0052a3;
-                        box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+                        padding: 6px !important;
                     }
 
                     button:active {
-                        transform: scale(0.95);
+                        transform: scale(0.96);
                     }
 
+                    /* Add buttons */
                     #mindx-comment-extension-button {
-                        background-color: #007bff;
-                        border-color: #007bff;
+                        color: #007bff;
+                        background-color: rgba(0, 123, 255, 0.1);
+                    }
+                    #mindx-comment-extension-button-improve {
+                        color: #f39c12;
+                        background-color: rgba(243, 156, 18, 0.1);
+                    }
+                    #mindx-comment-extension-button-advice {
+                        color: #28a745;
+                        background-color: rgba(40, 167, 69, 0.1);
                     }
 
-                    .mindx-comment-extension-delete {
-                        background-color: #d32f2f;
-                        color: #f5f5f5;
+                    #mindx-comment-extension-button:hover { background-color: rgba(0, 123, 255, 0.2); }
+                    #mindx-comment-extension-button-improve:hover { background-color: rgba(243, 156, 18, 0.2); }
+                    #mindx-comment-extension-button-advice:hover { background-color: rgba(40, 167, 69, 0.2); }
+
+                    /* Delete buttons */
+                    .mindx-comment-extension-item .mindx-comment-extension-delete {
+                        color: #dc3545;
+                        background-color: rgba(220, 53, 69, 0.1);
+                        border-radius: 8px;
                     }
+                    .mindx-comment-extension-item .mindx-comment-extension-delete:hover {
+                        background-color: rgba(220, 53, 69, 0.2);
+                    }
+
                     .mindx-comment-extension-item {
                         display: flex;
-                        gap: 5px;
-                        flex-wrap: wrap;
-                        padding: 5px;
-                        transition: all 0.3s ease;
+                        align-items: center;
+                        gap: 8px;
+                        padding: 6px;
+                        border-radius: 8px;
+                        transition: background-color 0.2s ease;
+                        background-color: #fafafa;
+                        border: 1px solid #f0f0f0;
                     }
                     .mindx-comment-extension-item:hover {
-                        background-color: #d4b2b2;
-                        border-radius: 5px;
-                    }
-
-                    #mindx-comment-extension-button-advice {
-                        background-color: #28a745;
-                        border-color: #28a745;
-                    }
-
-                    #mindx-comment-extension-button-improve {
-                        background-color: #ffc107;
-                        border-color: #ffc107;
+                        background-color: #f0f4f8;
+                        border-color: #e2e8f0;
                     }
 
                     #mindx-comment-extension-button-submit {
                         background-color: #007bff;
-                        border-color: #007bff;
-                        margin-top: 20px;
+                        color: white;
+                        padding: 10px 20px;
+                        font-weight: 600;
+                        margin-top: 24px;
+                        border-radius: 8px;
+                        width: 100%;
+                        box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+                    }
+                    #mindx-comment-extension-button-submit:hover {
+                        background-color: #0069d9;
+                        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+                    }
+                    
+                    .section-container {
+                        margin-bottom: 24px;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #f0f0f0;
+                    }
+                    .section-container:last-of-type {
+                        border-bottom: none;
+                        margin-bottom: 0;
+                        padding-bottom: 0;
+                    }
+                    
+                    .items-wrapper {
+                        display: flex;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                        align-items: center;
                     }
                 </style>
-                <div class="">
+                <div class="section-container">
                     <p class="strength">Điểm mạnh của học viên</p>
-                    <div class="" style="display: flex; gap: 5px; flex-wrap: wrap">
+                    <div class="items-wrapper">
                         <button id="mindx-comment-extension-button" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M8 12h8" />
-                                <path d="M12 8v8" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
                         </button>
-                        <div class="" style="display: flex; gap: 5px; flex-wrap: wrap" id="mindx-comment-extension-container"></div>
+                        <div class="items-wrapper" id="mindx-comment-extension-container"></div>
                     </div>
                 </div>
-                <div class="" style="margin-top: 18px">
+                <div class="section-container">
                     <p class="improve">Cần cải thiện</p>
-                    <div class="" style="display: flex; gap: 5px; flex-wrap: wrap">
+                    <div class="items-wrapper">
                         <button id="mindx-comment-extension-button-improve" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M8 12h8" />
-                                <path d="M12 8v8" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
                         </button>
-                        <div class="" style="display: flex; gap: 5px; flex-wrap: wrap" id="mindx-comment-extension-container-improve"></div>
+                        <div class="items-wrapper" id="mindx-comment-extension-container-improve"></div>
                     </div>
                 </div>
-                <div class="" style="margin-top: 18px">
+                <div class="section-container">
                     <p class="advice">Lời khuyên</p>
-                    <div class="" style="display: flex; gap: 5px; flex-wrap: wrap">
+                    <div class="items-wrapper">
                         <button id="mindx-comment-extension-button-advice" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M8 12h8" />
-                                <path d="M12 8v8" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
                         </button>
-                        <div class="" style="display: flex; gap: 5px; flex-wrap: wrap" id="mindx-comment-extension-container-advice"></div>
+                        <div class="items-wrapper" id="mindx-comment-extension-container-advice"></div>
                     </div>
                 </div>
                 <button id="mindx-comment-extension-button-submit" type="button">Tạo bình luận</button>
