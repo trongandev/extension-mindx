@@ -1,39 +1,35 @@
 let databaseCache = null
 
-async function loadDatabase() {
+async function loadDatabase(link_name) {
     if (databaseCache) {
         return databaseCache
     }
 
-    const response = await fetch(chrome.runtime.getURL("src/database.json"))
+    const response = await fetch(chrome.runtime.getURL(link_name))
     databaseCache = await response.json()
     return databaseCache
 }
 
-chrome.runtime.onInstalled.addListener(() => {
-    loadDatabase().catch((error) => {
-        console.error("Failed to preload database.json:", error)
-    })
-})
-
-chrome.runtime.onStartup.addListener(() => {
-    loadDatabase().catch((error) => {
-        console.error("Failed to preload database.json:", error)
-    })
-})
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message?.type !== "GET_DATABASE") {
-        return
+    if (message?.type === "GET_DATABASE") {
+        loadDatabase("src/database.json")
+            .then((data) => {
+                sendResponse({ ok: true, data })
+            })
+            .catch((error) => {
+                sendResponse({ ok: false, error: error instanceof Error ? error.message : String(error) })
+            })
     }
 
-    loadDatabase()
-        .then((data) => {
-            sendResponse({ ok: true, data })
-        })
-        .catch((error) => {
-            sendResponse({ ok: false, error: error instanceof Error ? error.message : String(error) })
-        })
+    if (message?.type === "GET_NX") {
+        loadDatabase("src/nx.json")
+            .then((data) => {
+                sendResponse({ ok: true, data })
+            })
+            .catch((error) => {
+                sendResponse({ ok: false, error: error instanceof Error ? error.message : String(error) })
+            })
+    }
 
     return true
 })

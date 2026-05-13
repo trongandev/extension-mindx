@@ -151,6 +151,25 @@ style.textContent = `
             opacity: 0.8;
             transform: scale(1.05);
         }
+
+        .btn-cmt {
+            margin-left: 8px;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cmt:hover {
+            opacity: 0.8;
+        }
+
+        .btn-cmt:active {
+            transform: scale(0.95);
+        }
     `
 
 const styleFeedback = document.createElement("style")
@@ -232,10 +251,10 @@ styleFeedback.textContent = `
 `
 
 function createCommentButton(text, color) {
-    document.head.appendChild(style)
     const button = document.createElement("button")
     button.className = "comment-button-mindx"
-    button.style.backgroundColor = color // Màu nền
+    button.type = "button"
+    button.style.backgroundColor = color
     button.innerText = text
     return button
 }
@@ -307,213 +326,678 @@ function testFunc(btn, inputs, bodyContainer, demoValue) {
         }
     }
 }
-// Create and append UI elements
-let lastObserverCall = 0
-const OBSERVER_THROTTLE = 500 // ms
-const processedNodes = new Set()
+const processedLessonContainers = new WeakSet()
+const processedDialogContainers = new WeakSet()
+let stylesInjected = false
 
-const observer = new MutationObserver((mutations) => {
-    const now = Date.now()
-    if (now - lastObserverCall < OBSERVER_THROTTLE) return
-    lastObserverCall = now
+function ensureStylesInjected() {
+    if (stylesInjected) {
+        return
+    }
 
-    mutations.forEach((mutation) => {
-        if (mutation.type === "childList") {
-            let findLessionContainer = document.querySelector("div[id*='class-comments-slot-carousel-'].active")
-            if (findLessionContainer && !processedNodes.has(findLessionContainer)) {
-                processedNodes.add(findLessionContainer)
+    if (!document.head.contains(style)) {
+        document.head.appendChild(style)
+    }
 
-                let findCodeClass = document.querySelector("h6.MuiTypography-root.MuiTypography-h6.css-1anx036").innerText.split(" ")[0].split("-")
-                let lenghtCode = findCodeClass.length
-                let code = ""
-                if (findCodeClass[1] === "AI4L1") {
-                    code = "AI4L1"
-                } else if (findCodeClass[1] === "AI4L2") {
-                    code = "AI4L2"
-                } else {
-                    code = lenghtCode === 3 ? findCodeClass[2].replace(/\d/g, "") : lenghtCode === 2 ? findCodeClass[1].replace(/\d/g, "") : ""
-                }
-                let findLession = findLessionContainer.querySelector(".info-container").innerText
-                let lessionNumber = findLession.split("\n")[0].replace("#", "").trim()
-                chrome.runtime.sendMessage({ type: "GET_DATABASE" }, (response) => {
-                    if (chrome.runtime.lastError) {
-                        console.error("GET_DATABASE failed:", chrome.runtime.lastError.message)
-                        return
-                    }
+    if (!document.head.contains(styleFeedback)) {
+        document.head.appendChild(styleFeedback)
+    }
 
-                    const data = response?.data || []
-                    let findDataCourse = data.find((course) => course.name.toLowerCase() === code.toLowerCase())
-                    let lessionContent = findDataCourse?.CAR[Number(lessionNumber) - 1].lession_content || ""
-                    let findCommentListTable = document.querySelector(".comment-list-table")
-                    const parent = findCommentListTable?.parentElement
-                    if (parent) {
-                        let style = document.createElement("style")
-                        style.textContent = `
-                                        .btn-cmt {
-                                            margin-left: 8px;
-                                            padding: 4px 8px;
-                                            border: none;
-                                            border-radius: 4px;
-                                            color: white;
-                                            cursor: pointer;
-                                            font-size: 12px;
-                                            transition: all 0.2s ease;
-                                        }
-                                        .btn-cmt:hover {
-                                            opacity: 0.8;
-                                        }
-                                        .btn-cmt:active {
-                                            transform: scale(0.95);
-                                        }
-                                    `
+    stylesInjected = true
+}
 
-                        let button = document.createElement("button")
-                        button.className = "btn-cmt"
-                        button.type = "button"
-                        button.style.backgroundColor = "#b28900"
-                        button.textContent = `Sao chép nội dung buổi ${lessionNumber} khóa học ${code}`
-                        button.addEventListener("click", async () => {
-                            await navigator.clipboard.writeText(lessionContent)
-                        })
-                        parent.insertBefore(style, parent.children[3])
-                        parent.insertBefore(button, parent.children[3])
-                    }
-                })
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (character) => {
+        if (character === "&") return "&amp;"
+        if (character === "<") return "&lt;"
+        if (character === ">") return "&gt;"
+        if (character === '"') return "&quot;"
+        return "&#39;"
+    })
+}
+
+function waitForElement(parent, selector, callback) {
+    const existing = parent.querySelector(selector)
+    if (existing) {
+        callback(existing)
+        return () => {}
+    }
+
+    const observer = new MutationObserver(() => {
+        const element = parent.querySelector(selector)
+        if (!element) {
+            return
+        }
+
+        observer.disconnect()
+        callback(element)
+    })
+
+    observer.observe(parent, {
+        childList: true,
+        subtree: true,
+    })
+
+    return () => observer.disconnect()
+}
+
+function waitForMatch(parent, finder, callback) {
+    const existing = finder()
+    if (existing) {
+        callback(existing)
+        return () => {}
+    }
+
+    const observer = new MutationObserver(() => {
+        const element = finder()
+        if (!element) {
+            return
+        }
+
+        observer.disconnect()
+        callback(element)
+    })
+
+    observer.observe(parent, {
+        childList: true,
+        subtree: true,
+    })
+
+    return () => observer.disconnect()
+}
+
+function findAddedNode(mutations, selector) {
+    for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+            if (!(node instanceof Element)) {
+                continue
             }
 
-            const bodyContainer = document.getElementsByClassName(
-                "MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded",
-            )
-            if (bodyContainer && bodyContainer.length > 0 && !processedNodes.has(bodyContainer[0])) {
-                processedNodes.add(bodyContainer[0])
-                // Kiểm tra xem nút đã được thêm chưa để tránh thêm nhiều lần
-                const existingButton = bodyContainer[0].querySelector(".comment-button-mindx")
-                if (!existingButton) {
-                    const hiddenButton = createCommentButton("H/S", "#9E9E9E")
-                    const commentButton1 = createCommentButton("TB", "#FFC107")
-                    const commentButton2 = createCommentButton("Khá", "#4CAF50")
-                    const commentButton3 = createCommentButton("Giỏi", "#2196F3")
-                    const commentButtonContainer = document.createElement("div")
-                    commentButtonContainer.className = "comment-button-mindx-container"
-                    commentButtonContainer.appendChild(commentButton1)
-                    commentButtonContainer.appendChild(commentButton2)
-                    commentButtonContainer.appendChild(commentButton3)
-                    commentButtonContainer.appendChild(hiddenButton)
-                    const feedbackContainer = document.createElement("div")
-                    feedbackContainer.className = "mindx-feedback-container"
-                    bodyContainer[0].appendChild(feedbackContainer)
-                    document.head.appendChild(styleFeedback)
-                    bodyContainer[0].appendChild(commentButtonContainer)
+            if (node.matches(selector)) {
+                return node
+            }
 
-                    // học viên ở mức trung bình
-                    commentButton1.addEventListener("click", () => {
-                        const inputs = bodyContainer[0].querySelectorAll("span.MuiButtonBase-root input[type='radio']")
-                        if (inputs.length > 0) {
-                            inputs[2].click() //[ĐNL] Kiến thức học viên tự học
-                            inputs[2 + 5].click() //[COD] Kỹ năng giải quyết vấn đề
-                            inputs[2 + 5 * 2].click() //[COD] Kỹ năng sử dụng máy tính
-                            inputs[2 + 5 * 2 - 1].click() //[COD] Thái độ học tập trên lớp
-                            inputs[2 + 5 * 4].click() //[COD] Tư duy máy tính, tư duy thuật toán
-                            inputs[2 + 5 * 5].click() //[COD] Kiến thức học viên đã được học tại lớp
-                            inputs[2 + 5 * 6].click() //[COD] Tư duy sáng tạo
-                        }
-
-                        if (inputs.length > 35) {
-                            inputs[3 + 5 * 7 - 1].click() //[COD] Tư duy sáng tạo
-                            inputs[3 + 5 * 8].click() //[COD] Tư duy sáng tạo
-                        }
-                        testFunc("btn1", inputs, bodyContainer, 3.3)
-                    })
-
-                    // học viên ở mức khá
-                    commentButton2.addEventListener("click", () => {
-                        const inputs = bodyContainer[0].querySelectorAll("span.MuiButtonBase-root input[type='radio']")
-                        if (inputs.length > 0) {
-                            inputs[4 - 1].click() //[ĐNL] Kiến thức học viên tự học
-                            inputs[4 + 4].click() //[COD] Kỹ năng giải quyết vấn đề
-                            inputs[4 + 5 * 2 - 1].click() //[COD] Kỹ năng sử dụng máy tính
-                            inputs[4 + 5 * 3 - 1].click() //[COD] Thái độ học tập trên lớp
-                            inputs[4 + 5 * 4 - 1].click() //[COD] Tư duy máy tính, tư duy thuật toán
-                            inputs[4 + 5 * 5 - 1].click() //[COD] Kiến thức học viên đã được học tại lớp
-                            inputs[4 + 5 * 6 - 1].click() //[COD] Tư duy sáng tạo
-                            if (inputs.length > 35) {
-                                inputs[4 + 5 * 7 - 1].click() //[COD] Tư duy sáng tạo
-                                inputs[4 + 5 * 8 - 1].click() //[COD] Tư duy sáng tạo
-                            }
-                        }
-
-                        testFunc("btn2", inputs, bodyContainer, 4.3)
-                    })
-
-                    // học viên ở mức giỏi
-                    commentButton3.addEventListener("click", () => {
-                        const inputs = bodyContainer[0].querySelectorAll("span.MuiButtonBase-root input[type='radio']")
-                        if (inputs.length > 0) {
-                            inputs[5].click() //[ĐNL] Kiến thức học viên tự học
-                            inputs[5 + 5 - 2].click() //[COD] Kỹ năng giải quyết vấn đề
-                            inputs[5 + 5 * 2].click() //[COD] Kỹ năng sử dụng máy tính
-                            inputs[5 + 5 * 3 - 1].click() //[COD] Thái độ học tập trên lớp
-                            inputs[5 + 5 * 4 - 2].click() //[COD] Tư duy máy tính, tư duy thuật toán
-                            inputs[5 + 5 * 5].click() //[COD] Kiến thức học viên đã được học tại lớp
-                            inputs[5 + 5 * 6 - 1].click() //[COD] Tư duy sáng tạo
-                            if (inputs.length > 35) {
-                                inputs[5 + 5 * 7 - 1].click() //[COD] Tư duy sáng tạo
-                                inputs[5 + 5 * 8 - 1].click() //[COD] Tư duy sáng tạo
-                            }
-                        }
-
-                        testFunc("btn3", inputs, bodyContainer, 4.8)
-                    })
-
-                    setTimeout(() => {
-                        FEEDBACK_ARRAY.forEach(([title, ...feedbacks]) => {
-                            const xpath = `.//div[text()='${title}']`
-                            const targetElement = document.evaluate(xpath, bodyContainer[0], null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
-                            if (targetElement) {
-                                let templateDiv = `<div class="btn-group-cmt-mindx" style="display: flex; gap: 2px">
-                                        <style>
-                                            .btn-cmt {
-                                                padding: 4px 8px;
-                                                border: none;
-                                                border-radius: 4px;
-                                                color: white;
-                                                cursor: pointer;
-                                                font-size: 12px;
-                                                transition: all 0.2s ease;
-                                            }
-                                            .btn-cmt:hover {
-                                                opacity: 0.8;
-                                            }
-                                            .btn-cmt:active {
-                                                transform: scale(0.95);
-                                            }
-                                        </style>
-                                            <button class="btn-cmt" onclick="navigator.clipboard.writeText('${feedbacks[0]}')" style="background-color: #b28900">TB</button>
-                                            <button class="btn-cmt" onclick="navigator.clipboard.writeText('${feedbacks[1]}')" style="background-color: #357a38">Khá</button>
-                                            <button class="btn-cmt" onclick="navigator.clipboard.writeText('${feedbacks[2]}')" style="background-color: #1769aa">Giỏi</button>
-                                    </div>`
-                                targetElement.innerHTML += templateDiv
-                            }
-                        })
-
-                        hiddenButton.addEventListener("click", () => {
-                            let feedbackContainer = bodyContainer[0].querySelectorAll(".btn-group-cmt-mindx")
-                            feedbackContainer.forEach((container) => {
-                                container.style.display = container.style.display === "none" ? "flex" : "none"
-                            })
-                            commentButton1.style.display = commentButton1.style.display === "none" ? "block" : "none"
-                            commentButton2.style.display = commentButton2.style.display === "none" ? "block" : "none"
-                            commentButton3.style.display = commentButton3.style.display === "none" ? "block" : "none"
-                        })
-                    }, 1500)
-                }
+            const nested = node.querySelector(selector)
+            if (nested) {
+                return nested
             }
         }
+    }
+
+    return null
+}
+
+function extractCourseCode(headerText) {
+    if (!headerText) {
+        return ""
+    }
+
+    const parts = headerText.split(" ")[0].split("-")
+    const length = parts.length
+
+    if (parts[1] === "AI4L1") {
+        return "AI4L1"
+    }
+
+    if (parts[1] === "AI4L2") {
+        return "AI4L2"
+    }
+
+    if (length === 3) {
+        return parts[2].replace(/\d/g, "")
+    }
+
+    if (length === 2) {
+        return parts[1].replace(/\d/g, "")
+    }
+
+    return ""
+}
+
+function createSelectableGroup({ state, options, container, groupName, placeholder }) {
+    const render = () => {
+        container.innerHTML = state
+            .map((item, index) => {
+                const selectedValues = state.filter((other, otherIndex) => otherIndex !== index && other.value).map((other) => other.value)
+
+                const optionMarkup = options
+                    .filter((option) => !selectedValues.includes(option) || option === item.value)
+                    .map((option) => {
+                        const selectedAttribute = option === item.value ? " selected" : ""
+                        return `<option value="${escapeHtml(option)}"${selectedAttribute}>${escapeHtml(option)}</option>`
+                    })
+                    .join("")
+
+                return `
+                    <div class="mindx-comment-extension-item">
+                        <select name="mindx-comment-extension-${groupName}" data-group="${groupName}" data-index="${index}">
+                            <option value="">${escapeHtml(placeholder)}</option>
+                            ${optionMarkup}
+                        </select>
+                        <button type="button" class="mindx-comment-extension-delete btn-small" data-action="remove-${groupName}" data-index="${index}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                `
+            })
+            .join("")
+    }
+
+    container.addEventListener("change", (event) => {
+        const select = event.target.closest(`select[data-group="${groupName}"]`)
+        if (!select || !container.contains(select)) {
+            return
+        }
+
+        const index = Number(select.dataset.index)
+        if (Number.isNaN(index) || !state[index]) {
+            return
+        }
+
+        state[index].value = select.value
+        render()
     })
+
+    container.addEventListener("click", (event) => {
+        const removeButton = event.target.closest(`button[data-action="remove-${groupName}"]`)
+        if (!removeButton || !container.contains(removeButton)) {
+            return
+        }
+
+        const index = Number(removeButton.dataset.index)
+        if (Number.isNaN(index)) {
+            return
+        }
+
+        state.splice(index, 1)
+        render()
+    })
+
+    render()
+
+    return render
+}
+
+function injectFeedbackButtons(rootNode) {
+    const findFeedbackTarget = (title) => document.evaluate(`.//div[normalize-space(text())='${title}']`, rootNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+
+    const renderFeedbackButtons = () => {
+        let pendingCount = 0
+
+        FEEDBACK_ARRAY.forEach(([title, ...feedbacks]) => {
+            const targetElement = findFeedbackTarget(title)
+            if (!targetElement) {
+                pendingCount++
+                return
+            }
+
+            if (targetElement.querySelector(".btn-group-cmt-mindx")) {
+                return
+            }
+
+            const group = document.createElement("div")
+            group.className = "btn-group-cmt-mindx"
+            group.style.display = "flex"
+            group.style.gap = "2px"
+
+            const feedbackItems = [
+                { label: "TB", color: "#b28900", text: feedbacks[0] },
+                { label: "Khá", color: "#357a38", text: feedbacks[1] },
+                { label: "Giỏi", color: "#1769aa", text: feedbacks[2] },
+            ]
+
+            feedbackItems.forEach((feedback) => {
+                const button = document.createElement("button")
+                button.type = "button"
+                button.className = "btn-cmt"
+                button.style.backgroundColor = feedback.color
+                button.textContent = feedback.label
+                button.addEventListener("click", async () => {
+                    try {
+                        await navigator.clipboard.writeText(feedback.text)
+                    } catch (error) {
+                        console.error("Copy failed:", error)
+                    }
+                })
+                group.appendChild(button)
+            })
+
+            targetElement.appendChild(group)
+        })
+
+        return pendingCount === 0
+    }
+
+    if (renderFeedbackButtons()) {
+        return
+    }
+
+    const observer = new MutationObserver(() => {
+        if (renderFeedbackButtons()) {
+            observer.disconnect()
+        }
+    })
+
+    observer.observe(rootNode, {
+        childList: true,
+        subtree: true,
+    })
+}
+
+function handleLessonContainer(lessonContainer) {
+    if (!lessonContainer || processedLessonContainers.has(lessonContainer)) {
+        return
+    }
+
+    processedLessonContainers.add(lessonContainer)
+
+    waitForElement(lessonContainer, ".info-container", (infoContainer) => {
+        const codeHeader = document.querySelector("h6.MuiTypography-root.MuiTypography-h6.css-1anx036")
+        const code = extractCourseCode(codeHeader?.innerText || "")
+        const lessonNumber = infoContainer.innerText.split("\n")[0].replace("#", "").trim()
+
+        chrome.runtime.sendMessage({ type: "GET_DATABASE" }, (response) => {
+            if (chrome.runtime.lastError) {
+                console.error("GET_DATABASE failed:", chrome.runtime.lastError.message)
+                return
+            }
+
+            const data = response?.data || []
+            const course = data.find((item) => item.name.toLowerCase() === code.toLowerCase())
+            const lessonContent = course?.CAR?.[Number(lessonNumber) - 1]?.lession_content || ""
+
+            waitForElement(document.body, ".comment-list-table", (commentListTable) => {
+                const parent = commentListTable.parentElement
+                if (!parent) {
+                    return
+                }
+
+                if (parent.querySelector(`.btn-cmt[data-copy-key="${code}-${lessonNumber}"]`)) {
+                    return
+                }
+
+                const button = document.createElement("button")
+                button.className = "btn-cmt"
+                button.type = "button"
+                button.style.backgroundColor = "#b28900"
+                button.dataset.copyKey = `${code}-${lessonNumber}`
+                button.textContent = `Sao chép nội dung buổi ${lessonNumber} khóa học ${code}`
+                button.addEventListener("click", async () => {
+                    try {
+                        await navigator.clipboard.writeText(lessonContent)
+                    } catch (error) {
+                        console.error("Copy failed:", error)
+                    }
+                })
+
+                parent.insertBefore(button, parent.children[3] || null)
+            })
+        })
+    })
+}
+
+function setupDialogPanel(rootNode) {
+    if (!rootNode || processedDialogContainers.has(rootNode)) {
+        return
+    }
+
+    processedDialogContainers.add(rootNode)
+    ensureStylesInjected()
+
+    const xpath = `.//em[text()=' Khả năng, ưu điểm, tiến bộ rõ rệt mà học viên đã thể hiện (chủ động, nhanh nhẹn, tích cực, áp dụng tốt,..) ']`
+    waitForMatch(
+        rootNode,
+        () => document.evaluate(xpath, rootNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue,
+        (targetElement) => {
+            if (!targetElement || !targetElement.parentElement) {
+                return
+            }
+
+            const parentElement = targetElement.parentElement
+            if (parentElement.querySelector("#mindx-comment-extension-panel")) {
+                return
+            }
+
+            const quickButtonContainer = document.createElement("div")
+            quickButtonContainer.className = "comment-button-mindx-container"
+
+            const hiddenButton = createCommentButton("H/S", "#9E9E9E")
+            const commentButton1 = createCommentButton("TB", "#FFC107")
+            const commentButton2 = createCommentButton("Khá", "#4CAF50")
+            const commentButton3 = createCommentButton("Giỏi", "#2196F3")
+
+            quickButtonContainer.appendChild(commentButton1)
+            quickButtonContainer.appendChild(commentButton2)
+            quickButtonContainer.appendChild(commentButton3)
+            quickButtonContainer.appendChild(hiddenButton)
+            rootNode.appendChild(quickButtonContainer)
+
+            commentButton1.addEventListener("click", () => {
+                const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
+                if (inputs.length > 0) {
+                    inputs[2].click()
+                    inputs[2 + 5].click()
+                    inputs[2 + 5 * 2].click()
+                    inputs[2 + 5 * 2 - 1].click()
+                    inputs[2 + 5 * 4].click()
+                    inputs[2 + 5 * 5].click()
+                    inputs[2 + 5 * 6].click()
+                }
+
+                if (inputs.length > 35) {
+                    inputs[3 + 5 * 7 - 1].click()
+                    inputs[3 + 5 * 8].click()
+                }
+
+                testFunc("btn1", inputs, [rootNode], 3.3)
+            })
+
+            commentButton2.addEventListener("click", () => {
+                const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
+                if (inputs.length > 0) {
+                    inputs[4 - 1].click()
+                    inputs[4 + 4].click()
+                    inputs[4 + 5 * 2 - 1].click()
+                    inputs[4 + 5 * 3 - 1].click()
+                    inputs[4 + 5 * 4 - 1].click()
+                    inputs[4 + 5 * 5 - 1].click()
+                    inputs[4 + 5 * 6 - 1].click()
+                    if (inputs.length > 35) {
+                        inputs[4 + 5 * 7 - 1].click()
+                        inputs[4 + 5 * 8 - 1].click()
+                    }
+                }
+
+                testFunc("btn2", inputs, [rootNode], 4.3)
+            })
+
+            commentButton3.addEventListener("click", () => {
+                const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
+                if (inputs.length > 0) {
+                    inputs[5].click()
+                    inputs[5 + 5 - 2].click()
+                    inputs[5 + 5 * 2].click()
+                    inputs[5 + 5 * 3 - 1].click()
+                    inputs[5 + 5 * 4 - 2].click()
+                    inputs[5 + 5 * 5].click()
+                    inputs[5 + 5 * 6 - 1].click()
+                    if (inputs.length > 35) {
+                        inputs[5 + 5 * 7 - 1].click()
+                        inputs[5 + 5 * 8 - 1].click()
+                    }
+                }
+
+                testFunc("btn3", inputs, [rootNode], 4.8)
+            })
+
+            const panel = document.createElement("div")
+            panel.id = "mindx-comment-extension-panel"
+            panel.innerHTML = `
+            <div class="">
+                <style>
+                    .strength {
+                        font-size: 16px;
+                        font-weight: bold;
+                        margin-bottom: 8px;
+                        color: #007bff;
+                    }
+                    .improve {
+                        font-size: 16px;
+                        font-weight: bold;
+                        margin-bottom: 8px;
+                        color: #ffc107;
+                    }
+                    .advice {
+                        font-size: 16px;
+                        font-weight: bold;
+                        margin-bottom: 8px;
+                        color: #28a745;
+                    }
+          
+                    select {
+                        max-width: 200px;
+                        padding: 8px 12px;
+                        border: 1px solid #d0d0d0;
+                        border-radius: 6px;
+                        font-size: 14px;
+                        font-family: inherit;
+                        background-color: white;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    }
+
+                    select:hover {
+                        border-color: #999;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    }
+
+                    select:focus {
+                        outline: none;
+                        border-color: #0066cc;
+                        box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+                    }
+
+                    button {
+                        padding: 8px 12px;
+                        border: 1px solid #d0d0d0;
+                        border-radius: 6px;
+                        color: white;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .btn-small {
+                        padding: 4px 8px !important;
+                        font-size: 10px !important;
+                    }
+
+                    button:hover {
+                        background-color: #0052a3;
+                        box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+                    }
+
+                    button:active {
+                        transform: scale(0.95);
+                    }
+
+                    #mindx-comment-extension-button {
+                        background-color: #007bff;
+                        border-color: #007bff;
+                    }
+
+                    .mindx-comment-extension-delete {
+                        background-color: #d32f2f;
+                        color: #f5f5f5;
+                    }
+                    .mindx-comment-extension-item {
+                        display: flex;
+                        gap: 5px;
+                        flex-wrap: wrap;
+                        padding: 5px;
+                        transition: all 0.3s ease;
+                    }
+                    .mindx-comment-extension-item:hover {
+                        background-color: #d4b2b2;
+                        border-radius: 5px;
+                    }
+
+                    #mindx-comment-extension-button-advice {
+                        background-color: #28a745;
+                        border-color: #28a745;
+                    }
+
+                    #mindx-comment-extension-button-improve {
+                        background-color: #ffc107;
+                        border-color: #ffc107;
+                    }
+
+                    #mindx-comment-extension-button-submit {
+                        background-color: #007bff;
+                        border-color: #007bff;
+                        margin-top: 20px;
+                    }
+                </style>
+                <div class="">
+                    <p class="strength">Điểm mạnh của học viên</p>
+                    <div class="" style="display: flex; gap: 5px; flex-wrap: wrap">
+                        <button id="mindx-comment-extension-button" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 12h8" />
+                                <path d="M12 8v8" />
+                            </svg>
+                        </button>
+                        <div class="" style="display: flex; gap: 5px; flex-wrap: wrap" id="mindx-comment-extension-container"></div>
+                    </div>
+                </div>
+                <div class="" style="margin-top: 18px">
+                    <p class="improve">Cần cải thiện</p>
+                    <div class="" style="display: flex; gap: 5px; flex-wrap: wrap">
+                        <button id="mindx-comment-extension-button-improve" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 12h8" />
+                                <path d="M12 8v8" />
+                            </svg>
+                        </button>
+                        <div class="" style="display: flex; gap: 5px; flex-wrap: wrap" id="mindx-comment-extension-container-improve"></div>
+                    </div>
+                </div>
+                <div class="" style="margin-top: 18px">
+                    <p class="advice">Lời khuyên</p>
+                    <div class="" style="display: flex; gap: 5px; flex-wrap: wrap">
+                        <button id="mindx-comment-extension-button-advice" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 12h8" />
+                                <path d="M12 8v8" />
+                            </svg>
+                        </button>
+                        <div class="" style="display: flex; gap: 5px; flex-wrap: wrap" id="mindx-comment-extension-container-advice"></div>
+                    </div>
+                </div>
+                <button id="mindx-comment-extension-button-submit" type="button">Tạo bình luận</button>
+            </div>`
+
+            parentElement.appendChild(panel)
+
+            chrome.runtime.sendMessage({ type: "GET_NX" }, (response) => {
+                const data = response?.data || { strengths: [], improvements: [], advice: [] }
+
+                const strengthState = []
+                const improvementState = []
+                const adviceState = []
+
+                const strengthContainer = panel.querySelector("#mindx-comment-extension-container")
+                const improvementContainer = panel.querySelector("#mindx-comment-extension-container-improve")
+                const adviceContainer = panel.querySelector("#mindx-comment-extension-container-advice")
+                const strengthAddButton = panel.querySelector("#mindx-comment-extension-button")
+                const improvementAddButton = panel.querySelector("#mindx-comment-extension-button-improve")
+                const adviceAddButton = panel.querySelector("#mindx-comment-extension-button-advice")
+                const submitButton = panel.querySelector("#mindx-comment-extension-button-submit")
+
+                if (!strengthContainer || !improvementContainer || !adviceContainer || !strengthAddButton || !improvementAddButton || !adviceAddButton || !submitButton) {
+                    return
+                }
+
+                const renderStrengths = createSelectableGroup({
+                    state: strengthState,
+                    options: data.strengths || [],
+                    container: strengthContainer,
+                    groupName: "strengths",
+                    placeholder: "-- Chọn điểm mạnh --",
+                })
+
+                const renderImprovements = createSelectableGroup({
+                    state: improvementState,
+                    options: data.improvements || [],
+                    container: improvementContainer,
+                    groupName: "improvements",
+                    placeholder: "-- Chọn cần cải thiện --",
+                })
+
+                const renderAdvice = createSelectableGroup({
+                    state: adviceState,
+                    options: data.advice || [],
+                    container: adviceContainer,
+                    groupName: "advice",
+                    placeholder: "-- Chọn lời khuyên --",
+                })
+
+                strengthAddButton.addEventListener("click", () => {
+                    strengthState.push({ value: "" })
+                    renderStrengths()
+                })
+
+                improvementAddButton.addEventListener("click", () => {
+                    improvementState.push({ value: "" })
+                    renderImprovements()
+                })
+
+                adviceAddButton.addEventListener("click", () => {
+                    adviceState.push({ value: "" })
+                    renderAdvice()
+                })
+
+                submitButton.addEventListener("click", () => {
+                    const selectedStrengths = strengthState.map((item) => item.value).filter(Boolean)
+                    const selectedImprovements = improvementState.map((item) => item.value).filter(Boolean)
+                    const selectedAdvice = adviceState.map((item) => item.value).filter(Boolean)
+
+                    const danhgialoikhuyen = rootNode.querySelector(".quill .ql-container .ql-editor")
+                    if (danhgialoikhuyen) {
+                        danhgialoikhuyen.innerHTML = `<ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Điểm mạnh: ${escapeHtml(selectedStrengths.join(", "))}                     </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Cần cải thiện: ${escapeHtml(selectedImprovements.join(", "))}                    </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Lời khuyên: ${escapeHtml(selectedAdvice.join(", "))}</li></ol>`
+                    }
+                })
+            })
+
+            hiddenButton.addEventListener("click", () => {
+                rootNode.querySelectorAll(".btn-group-cmt-mindx").forEach((container) => {
+                    container.style.display = container.style.display === "none" ? "flex" : "none"
+                })
+                ;[commentButton1, commentButton2, commentButton3].forEach((button) => {
+                    button.style.display = button.style.display === "none" ? "block" : "none"
+                })
+            })
+
+            injectFeedbackButtons(rootNode)
+        },
+    )
+}
+
+function bootstrapExistingNodes() {
+    const activeLesson = document.querySelector("div[id*='class-comments-slot-carousel-'].active")
+    if (activeLesson) {
+        handleLessonContainer(activeLesson)
+    }
+
+    const activeDialog = document.getElementsByClassName(
+        "MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded",
+    )[0]
+    if (activeDialog) {
+        setupDialogPanel(activeDialog)
+    }
+}
+
+const observer = new MutationObserver((mutations) => {
+    const lessonContainer = findAddedNode(mutations, "div[id*='class-comments-slot-carousel-'].active")
+    if (lessonContainer) {
+        handleLessonContainer(lessonContainer)
+    }
+
+    const dialogContainer = findAddedNode(mutations, ".MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded")
+    if (dialogContainer) {
+        setupDialogPanel(dialogContainer)
+    }
 })
 
-// Bắt đầu theo dõi thay đổi trong DOM
+ensureStylesInjected()
+bootstrapExistingNodes()
+
 observer.observe(document.body, {
     childList: true,
-    subtree: true, // Theo dõi cả các phần tử con bên trong body
+    subtree: true,
 })
