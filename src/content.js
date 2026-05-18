@@ -274,21 +274,21 @@ function testFunc(btn, inputs, bodyContainer, demoValue) {
                 demoScore[i].focus()
             }
         }
-        let textareas = bodyContainer[0].querySelectorAll("textarea")
-        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-            window.HTMLTextAreaElement.prototype, // dùng HTMLInputElement nếu là <input>
-            "value",
-        ).set
+        // let textareas = bodyContainer[0].querySelectorAll("textarea")
+        // const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+        //     window.HTMLTextAreaElement.prototype, // dùng HTMLInputElement nếu là <input>
+        //     "value",
+        // ).set
 
-        let indexOffset = 0
-        let idxChoice = btn === "btn1" ? 1 : btn === "btn2" ? 2 : 3
-        for (let i = 0; i < 17; i++) {
-            if (i % 2 === 0) {
-                nativeInputValueSetter.call(textareas[i], "- " + FEEDBACK_ARRAY[indexOffset][idxChoice])
-                textareas[i].dispatchEvent(new Event("input", { bubbles: true }))
-                indexOffset++
-            }
-        }
+        // let indexOffset = 0
+        // let idxChoice = btn === "btn1" ? 1 : btn === "btn2" ? 2 : 3
+        // for (let i = 0; i < 17; i++) {
+        //     if (i % 2 === 0) {
+        //         nativeInputValueSetter.call(textareas[i], "- " + FEEDBACK_ARRAY[indexOffset][idxChoice])
+        //         textareas[i].dispatchEvent(new Event("input", { bubbles: true }))
+        //         indexOffset++
+        //     }
+        // }
     }
     if (inputs.length > 45) {
         inputs[45].click() //KHẢO SÁT ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ - DÀNH CHO PHỤ HUYNH
@@ -326,7 +326,7 @@ function testFunc(btn, inputs, bodyContainer, demoValue) {
         }
     }
 }
-const processedLessonContainers = new WeakSet()
+const processedLessonKeys = new Set()
 const processedDialogContainers = new WeakSet()
 let stylesInjected = false
 
@@ -585,16 +585,21 @@ function injectFeedbackButtons(rootNode) {
 }
 
 function handleLessonContainer(lessonContainer) {
-    if (!lessonContainer || processedLessonContainers.has(lessonContainer)) {
+    if (!lessonContainer) {
         return
     }
-
-    processedLessonContainers.add(lessonContainer)
 
     waitForElement(lessonContainer, ".info-container", (infoContainer) => {
         const codeHeader = document.querySelector("h6.MuiTypography-root.MuiTypography-h6.css-1anx036")
         const code = extractCourseCode(codeHeader?.innerText || "")
         const lessonNumber = infoContainer.innerText.split("\n")[0].replace("#", "").trim()
+        const lessonKey = `${code}-${lessonNumber}`
+
+        if (processedLessonKeys.has(lessonKey)) {
+            return
+        }
+
+        processedLessonKeys.add(lessonKey)
 
         chrome.runtime.sendMessage({ type: "GET_DATABASE" }, (response) => {
             if (chrome.runtime.lastError) {
@@ -942,6 +947,13 @@ function setupDialogPanel(rootNode) {
             chrome.runtime.sendMessage({ type: "GET_NX" }, (response) => {
                 const data = response?.data || { strengths: [], improvements: [], advice: [] }
 
+                const savedCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
+                const sortByCount = (a, b) => (savedCounts[b] || 0) - (savedCounts[a] || 0)
+
+                data.strengths = (data.strengths || []).sort(sortByCount)
+                data.improvements = (data.improvements || []).sort(sortByCount)
+                data.advice = (data.advice || []).sort(sortByCount)
+
                 const strengthState = []
                 const improvementState = []
                 const adviceState = []
@@ -1002,6 +1014,15 @@ function setupDialogPanel(rootNode) {
                     const selectedImprovements = improvementState.map((item) => item.value).filter(Boolean)
                     const selectedAdvice = adviceState.map((item) => item.value).filter(Boolean)
 
+                    const allSelected = [...selectedStrengths, ...selectedImprovements, ...selectedAdvice]
+                    if (allSelected.length > 0) {
+                        const currentCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
+                        allSelected.forEach((val) => {
+                            currentCounts[val] = (currentCounts[val] || 0) + 1
+                        })
+                        localStorage.setItem("mindx-comment-counts", JSON.stringify(currentCounts))
+                    }
+
                     const danhgialoikhuyen = rootNode.querySelector(".quill .ql-container .ql-editor")
                     if (danhgialoikhuyen) {
                         danhgialoikhuyen.innerHTML = `<ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Điểm mạnh: ${escapeHtml(selectedStrengths.join(", "))}                     </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Cần cải thiện: ${escapeHtml(selectedImprovements.join(", "))}                    </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Lời khuyên: ${escapeHtml(selectedAdvice.join(", "))}</li></ol>`
@@ -1041,6 +1062,11 @@ const observer = new MutationObserver((mutations) => {
     const lessonContainer = findAddedNode(mutations, "div[id*='class-comments-slot-carousel-'].active")
     if (lessonContainer) {
         handleLessonContainer(lessonContainer)
+    } else {
+        const activeLesson = document.querySelector("div[id*='class-comments-slot-carousel-'].active")
+        if (activeLesson) {
+            handleLessonContainer(activeLesson)
+        }
     }
 
     const dialogContainer = findAddedNode(mutations, ".MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded")
@@ -1054,5 +1080,7 @@ bootstrapExistingNodes()
 
 observer.observe(document.body, {
     childList: true,
+    attributes: true,
+    attributeFilter: ["class"],
     subtree: true,
 })
