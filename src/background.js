@@ -1,13 +1,14 @@
-let databaseCache = null
+const databaseCache = {}
 
 async function loadDatabase(link_name) {
-    if (databaseCache) {
-        return databaseCache
+    if (databaseCache[link_name]) {
+        return databaseCache[link_name]
     }
 
     const response = await fetch(chrome.runtime.getURL(link_name))
-    databaseCache = await response.json()
-    return databaseCache
+    const json = await response.json()
+    databaseCache[link_name] = json
+    return json
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -33,3 +34,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     return true
 })
+
+console.log(databaseCache, "databaseCache")

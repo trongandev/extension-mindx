@@ -946,7 +946,6 @@ function setupDialogPanel(rootNode) {
 
             chrome.runtime.sendMessage({ type: "GET_NX" }, (response) => {
                 const data = response?.data || { strengths: [], improvements: [], advice: [] }
-
                 const savedCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
                 const sortByCount = (a, b) => (savedCounts[b] || 0) - (savedCounts[a] || 0)
 
