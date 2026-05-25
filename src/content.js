@@ -249,6 +249,16 @@ styleFeedback.textContent = `
 }
 
 `
+const DURATION_TIME = 50
+
+function handleRandomFeedback(btn, bodyContainer) {
+    let feedbackChoose = btn === "btn1" ? FEEDBACK_ARRAY_2[0] : btn === "btn2" ? FEEDBACK_ARRAY_2[1] : FEEDBACK_ARRAY_2[2]
+    let randIndex = Math.floor(Math.random() * feedbackChoose[0].length)
+    let danhgialoikhuyen = bodyContainer[0].querySelector(".quill .ql-container .ql-editor")
+    if (danhgialoikhuyen) {
+        danhgialoikhuyen.innerHTML = `<ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>${feedbackChoose[randIndex][0]}                     </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>${feedbackChoose[randIndex][1]}                    </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>${feedbackChoose[randIndex][2]}</li></ol>`
+    }
+}
 
 function createCommentButton(text, color) {
     const button = document.createElement("button")
@@ -274,33 +284,32 @@ function testFunc(btn, inputs, bodyContainer, demoValue) {
                 demoScore[i].focus()
             }
         }
-        // let textareas = bodyContainer[0].querySelectorAll("textarea")
-        // const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-        //     window.HTMLTextAreaElement.prototype, // dùng HTMLInputElement nếu là <input>
-        //     "value",
-        // ).set
+        let textareas = bodyContainer[0].querySelectorAll("textarea")
+        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+            window.HTMLTextAreaElement.prototype, // dùng HTMLInputElement nếu là <input>
+            "value",
+        ).set
 
-        // let indexOffset = 0
-        // let idxChoice = btn === "btn1" ? 1 : btn === "btn2" ? 2 : 3
-        // for (let i = 0; i < 17; i++) {
-        //     if (i % 2 === 0) {
-        //         nativeInputValueSetter.call(textareas[i], "- " + FEEDBACK_ARRAY[indexOffset][idxChoice])
-        //         textareas[i].dispatchEvent(new Event("input", { bubbles: true }))
-        //         indexOffset++
-        //     }
-        // }
+        let indexOffset = 0
+        let idxChoice = btn === "btn1" ? 1 : btn === "btn2" ? 2 : 3
+        let delay2 = 0
+        for (let i = 0; i < 17; i++) {
+            if (i % 2 === 0) {
+                setTimeout(() => {
+                    nativeInputValueSetter.call(textareas[i], FEEDBACK_ARRAY[indexOffset][idxChoice])
+                    textareas[i].dispatchEvent(new Event("input", { bubbles: true }))
+                    indexOffset++
+                }, delay2)
+                delay2 += DURATION_TIME
+            }
+        }
     }
     if (inputs.length > 45) {
         inputs[45].click() //KHẢO SÁT ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ - DÀNH CHO PHỤ HUYNH
         inputs[45].focus()
     }
     // đánh giá & lời khuyên chung dành cho học viên
-    let feedbackChoose = btn === "btn1" ? FEEDBACK_ARRAY_2[0] : btn === "btn2" ? FEEDBACK_ARRAY_2[1] : FEEDBACK_ARRAY_2[2]
-    let randIndex = Math.floor(Math.random() * feedbackChoose[0].length)
-    let danhgialoikhuyen = bodyContainer[0].querySelector(".quill .ql-container .ql-editor")
-    if (danhgialoikhuyen) {
-        danhgialoikhuyen.innerHTML = `<ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>${feedbackChoose[randIndex][0]}                     </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>${feedbackChoose[randIndex][1]}                    </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>${feedbackChoose[randIndex][2]}</li></ol>`
-    }
+    handleRandomFeedback(btn, bodyContainer)
 
     let learnedFromMindx = bodyContainer[0].querySelector('[data-placeholder="@learnedFromMindx"]')
     let suggestionsFromMindx = bodyContainer[0].querySelector('[data-placeholder="@suggestionsFromMindx"]')
@@ -317,13 +326,23 @@ function testFunc(btn, inputs, bodyContainer, demoValue) {
         futureDirection.innerHTML = templateFd
     }
 
+    let delay3 = 0
     const checkBoxInput = bodyContainer[0].querySelectorAll("span.MuiButtonBase-root input[type='checkbox']")
     if (checkBoxInput && checkBoxInput.length > 0) {
         let countChecked = btn === "btn1" ? 7 : btn === "btn2" ? 8 : 9
         for (let i = 1; i < countChecked; i++) {
             if (checkBoxInput[i].checked) continue
-            checkBoxInput[i].click() //chọn tất cả các checkbox
+            setTimeout(() => {
+                checkBoxInput[i].click()
+            }, delay3)
+            delay3 += DURATION_TIME
         }
+    }
+    const button = bodyContainer[0].getElementsByClassName(
+        "MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary jss59 jss61 css-1v3yz0b",
+    )
+    if (button) {
+        button[0].focus()
     }
 }
 const processedLessonKeys = new Set()
@@ -520,10 +539,8 @@ function createSelectableGroup({ state, options, container, groupName, placehold
 
 function injectFeedbackButtons(rootNode) {
     const findFeedbackTarget = (title) => document.evaluate(`.//div[normalize-space(text())='${title}']`, rootNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
-
     const renderFeedbackButtons = () => {
         let pendingCount = 0
-
         FEEDBACK_ARRAY.forEach(([title, ...feedbacks]) => {
             const targetElement = findFeedbackTarget(title)
             if (!targetElement) {
@@ -649,10 +666,88 @@ function setupDialogPanel(rootNode) {
     processedDialogContainers.add(rootNode)
     ensureStylesInjected()
 
-    const xpath = `.//em[text()=' Khả năng, ưu điểm, tiến bộ rõ rệt mà học viên đã thể hiện (chủ động, nhanh nhẹn, tích cực, áp dụng tốt,..) ']`
+    if (!rootNode.querySelector(".comment-button-mindx-container")) {
+        const quickButtonContainer = document.createElement("div")
+        quickButtonContainer.className = "comment-button-mindx-container"
+
+        const hiddenButton = createCommentButton("H/S", "#9E9E9E")
+        const commentButton1 = createCommentButton("TB", "#FFC107")
+        const commentButton2 = createCommentButton("Khá", "#4CAF50")
+        const commentButton3 = createCommentButton("Giỏi", "#2196F3")
+
+        quickButtonContainer.appendChild(commentButton1)
+        quickButtonContainer.appendChild(commentButton2)
+        quickButtonContainer.appendChild(commentButton3)
+        quickButtonContainer.appendChild(hiddenButton)
+        rootNode.appendChild(quickButtonContainer)
+
+        commentButton1.addEventListener("click", () => {
+            const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
+            indices = [2, 7, 12, 17, 22, 27, 32, 37, 43]
+            let delay = 0
+            indices.forEach((index) => {
+                setTimeout(() => {
+                    if (index < inputs.length) {
+                        inputs[index].click()
+                        inputs[index].focus()
+                    }
+                }, delay)
+                delay += DURATION_TIME
+            })
+            testFunc("btn1", inputs, [rootNode], 3.3)
+        })
+
+        commentButton2.addEventListener("click", () => {
+            const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
+            indices = [3, 8, 13, 18, 23, 28, 33, 38, 43]
+            let delay = 0
+            indices.forEach((index) => {
+                setTimeout(() => {
+                    if (index < inputs.length) {
+                        inputs[index].click()
+                        inputs[index].focus()
+                    }
+                }, delay)
+                delay += DURATION_TIME
+            })
+            testFunc("btn2", inputs, [rootNode], 4.3)
+        })
+
+        commentButton3.addEventListener("click", () => {
+            const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
+            const indices = [4, 9, 14, 18, 24, 28, 33, 39, 45]
+            let delay = 0
+            indices.forEach((index) => {
+                setTimeout(() => {
+                    if (index < inputs.length) {
+                        inputs[index].click()
+                        inputs[index].focus()
+                    }
+                }, delay)
+                delay += DURATION_TIME
+            })
+            testFunc("btn3", inputs, [rootNode], 4.8)
+        })
+
+        hiddenButton.addEventListener("click", () => {
+            rootNode.querySelectorAll(".btn-group-cmt-mindx").forEach((container) => {
+                container.style.display = container.style.display === "none" ? "flex" : "none"
+            })
+            ;[commentButton1, commentButton2, commentButton3].forEach((button) => {
+                button.style.display = button.style.display === "none" ? "block" : "none"
+            })
+        })
+        injectFeedbackButtons(rootNode)
+    }
+
+    const targetText = "Khả năng, ưu điểm, tiến bộ rõ rệt mà học viên đã thể hiện (chủ động, nhanh nhẹn, tích cực, áp dụng tốt,..)"
     waitForMatch(
         rootNode,
-        () => document.evaluate(xpath, rootNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue,
+        () => {
+            const paragraphs = Array.from(rootNode.querySelectorAll("p"))
+
+            return paragraphs.find((el) => el.textContent && el.textContent.includes(targetText))
+        },
         (targetElement) => {
             if (!targetElement || !targetElement.parentElement) {
                 return
@@ -663,81 +758,8 @@ function setupDialogPanel(rootNode) {
                 return
             }
 
-            const quickButtonContainer = document.createElement("div")
-            quickButtonContainer.className = "comment-button-mindx-container"
-
-            const hiddenButton = createCommentButton("H/S", "#9E9E9E")
-            const commentButton1 = createCommentButton("TB", "#FFC107")
-            const commentButton2 = createCommentButton("Khá", "#4CAF50")
-            const commentButton3 = createCommentButton("Giỏi", "#2196F3")
-
-            quickButtonContainer.appendChild(commentButton1)
-            quickButtonContainer.appendChild(commentButton2)
-            quickButtonContainer.appendChild(commentButton3)
-            quickButtonContainer.appendChild(hiddenButton)
-            rootNode.appendChild(quickButtonContainer)
-
-            commentButton1.addEventListener("click", () => {
-                const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
-                if (inputs.length > 0) {
-                    inputs[2].click()
-                    inputs[2 + 5].click()
-                    inputs[2 + 5 * 2].click()
-                    inputs[2 + 5 * 2 - 1].click()
-                    inputs[2 + 5 * 4].click()
-                    inputs[2 + 5 * 5].click()
-                    inputs[2 + 5 * 6].click()
-                }
-
-                if (inputs.length > 35) {
-                    inputs[3 + 5 * 7 - 1].click()
-                    inputs[3 + 5 * 8].click()
-                }
-
-                testFunc("btn1", inputs, [rootNode], 3.3)
-            })
-
-            commentButton2.addEventListener("click", () => {
-                const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
-                if (inputs.length > 0) {
-                    inputs[4 - 1].click()
-                    inputs[4 + 4].click()
-                    inputs[4 + 5 * 2 - 1].click()
-                    inputs[4 + 5 * 3 - 1].click()
-                    inputs[4 + 5 * 4 - 1].click()
-                    inputs[4 + 5 * 5 - 1].click()
-                    inputs[4 + 5 * 6 - 1].click()
-                    if (inputs.length > 35) {
-                        inputs[4 + 5 * 7 - 1].click()
-                        inputs[4 + 5 * 8 - 1].click()
-                    }
-                }
-
-                testFunc("btn2", inputs, [rootNode], 4.3)
-            })
-
-            commentButton3.addEventListener("click", () => {
-                const inputs = rootNode.querySelectorAll("span.MuiButtonBase-root input[type='radio']")
-                if (inputs.length > 0) {
-                    inputs[5].click()
-                    inputs[5 + 5 - 2].click()
-                    inputs[5 + 5 * 2].click()
-                    inputs[5 + 5 * 3 - 1].click()
-                    inputs[5 + 5 * 4 - 2].click()
-                    inputs[5 + 5 * 5].click()
-                    inputs[5 + 5 * 6 - 1].click()
-                    if (inputs.length > 35) {
-                        inputs[5 + 5 * 7 - 1].click()
-                        inputs[5 + 5 * 8 - 1].click()
-                    }
-                }
-
-                testFunc("btn3", inputs, [rootNode], 4.8)
-            })
-
-            const panel = document.createElement("div")
-            panel.id = "mindx-comment-extension-panel"
-            panel.innerHTML = `
+            parentElement.id = "mindx-comment-extension-panel"
+            parentElement.innerHTML = `
             <div class="mindx-extension-wrapper">
                 <style>
                     .mindx-extension-wrapper {
@@ -772,7 +794,7 @@ function setupDialogPanel(rootNode) {
                         text-transform: uppercase;
                         letter-spacing: 0.5px;
                     }
-                    
+
                     select {
                         max-width: 200px;
                         width: 100%;
@@ -884,7 +906,7 @@ function setupDialogPanel(rootNode) {
                         background-color: #0069d9;
                         box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
                     }
-                    
+
                     .section-container {
                         margin-bottom: 24px;
                         padding-bottom: 20px;
@@ -895,7 +917,7 @@ function setupDialogPanel(rootNode) {
                         margin-bottom: 0;
                         padding-bottom: 0;
                     }
-                    
+
                     .items-wrapper {
                         display: flex;
                         gap: 10px;
@@ -942,8 +964,6 @@ function setupDialogPanel(rootNode) {
                 <button id="mindx-comment-extension-button-submit" type="button">Tạo bình luận</button>
             </div>`
 
-            parentElement.appendChild(panel)
-
             chrome.runtime.sendMessage({ type: "GET_NX" }, (response) => {
                 const data = response?.data || { strengths: [], improvements: [], advice: [] }
                 const savedCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
@@ -957,13 +977,13 @@ function setupDialogPanel(rootNode) {
                 const improvementState = []
                 const adviceState = []
 
-                const strengthContainer = panel.querySelector("#mindx-comment-extension-container")
-                const improvementContainer = panel.querySelector("#mindx-comment-extension-container-improve")
-                const adviceContainer = panel.querySelector("#mindx-comment-extension-container-advice")
-                const strengthAddButton = panel.querySelector("#mindx-comment-extension-button")
-                const improvementAddButton = panel.querySelector("#mindx-comment-extension-button-improve")
-                const adviceAddButton = panel.querySelector("#mindx-comment-extension-button-advice")
-                const submitButton = panel.querySelector("#mindx-comment-extension-button-submit")
+                const strengthContainer = parentElement.querySelector("#mindx-comment-extension-container")
+                const improvementContainer = parentElement.querySelector("#mindx-comment-extension-container-improve")
+                const adviceContainer = parentElement.querySelector("#mindx-comment-extension-container-advice")
+                const strengthAddButton = parentElement.querySelector("#mindx-comment-extension-button")
+                const improvementAddButton = parentElement.querySelector("#mindx-comment-extension-button-improve")
+                const adviceAddButton = parentElement.querySelector("#mindx-comment-extension-button-advice")
+                const submitButton = parentElement.querySelector("#mindx-comment-extension-button-submit")
 
                 if (!strengthContainer || !improvementContainer || !adviceContainer || !strengthAddButton || !improvementAddButton || !adviceAddButton || !submitButton) {
                     return
@@ -1028,17 +1048,37 @@ function setupDialogPanel(rootNode) {
                     }
                 })
             })
+            const parentParentContainer = parentElement.parentElement.parentElement
+            const targetLabel = "Đánh giá chung"
 
-            hiddenButton.addEventListener("click", () => {
-                rootNode.querySelectorAll(".btn-group-cmt-mindx").forEach((container) => {
-                    container.style.display = container.style.display === "none" ? "flex" : "none"
-                })
-                ;[commentButton1, commentButton2, commentButton3].forEach((button) => {
-                    button.style.display = button.style.display === "none" ? "block" : "none"
-                })
-            })
+            const divs = Array.from(parentParentContainer.querySelectorAll("div"))
+            const result = divs.find((el) => el.textContent && el.textContent.includes(targetLabel))
+            if (result && !result.querySelector(".btn-group-cmt-mindx")) {
+                const group = document.createElement("div")
+                group.className = "btn-group-cmt-mindx"
+                group.style.display = "flex"
+                group.style.gap = "2px"
 
-            injectFeedbackButtons(rootNode)
+                const feedbackItems = [
+                    { label: "TB", color: "#b28900" },
+                    { label: "Khá", color: "#357a38" },
+                    { label: "Giỏi", color: "#1769aa" },
+                ]
+
+                feedbackItems.forEach((feedback) => {
+                    const button = document.createElement("button")
+                    button.type = "button"
+                    button.className = "btn-cmt"
+                    button.style.backgroundColor = feedback.color
+                    button.textContent = feedback.label
+                    button.addEventListener("click", async () => {
+                        handleRandomFeedback(feedback.label == "TB" ? "btn1" : feedback.label == "Khá" ? "btn2" : "btn3", [rootNode])
+                    })
+                    group.appendChild(button)
+                })
+
+                result.appendChild(group)
+            }
         },
     )
 }
