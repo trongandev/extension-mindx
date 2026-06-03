@@ -249,7 +249,7 @@ styleFeedback.textContent = `
 }
 
 `
-const DURATION_TIME = 150
+const DURATION_TIME = 250
 
 function handleRandomFeedback(btn, bodyContainer) {
     let feedbackChoose = btn === "btn1" ? FEEDBACK_ARRAY_2[0] : btn === "btn2" ? FEEDBACK_ARRAY_2[1] : FEEDBACK_ARRAY_2[2]
@@ -537,6 +537,107 @@ function createSelectableGroup({ state, options, container, groupName, placehold
     return render
 }
 
+const MINDX_COMMENT_STRENGTHS = [
+    { key: "tốt", label: "Tốt", text: "bạn học tốt, hiểu được bài học" },
+    { key: "ngoan", label: "Ngoan ngoãn", text: "bạn ngoan ngoãn, lễ phép" },
+    { key: "tự giác", label: "Tự giác", text: "bạn có ý thức tự giác trong học tập" },
+    { key: "tập trung", label: "Tập trung", text: "bạn tập trung cao độ trong giờ học" },
+    { key: "sáng tạo", label: "Sáng tạo", text: "bạn có tư duy sáng tạo, nhạy bén" },
+    { key: "tiếp thu nhanh", label: "Tiếp thu nhanh", text: "bạn tiếp thu kiến thức mới rất nhanh" },
+    { key: "chăm chỉ", label: "Làm bài đủ", text: "bạn luôn hoàn thành bài tập về nhà đầy đủ" },
+    { key: "phát biểu", label: "Phát biểu", text: "bạn năng nổ, hăng hái phát biểu xây dựng bài" },
+    { key: "cẩn thận", label: "Cẩn thận", text: "bạn làm bài cẩn thận, trình bày sạch đẹp" },
+    { key: "hòa đồng", label: "Hòa đồng", text: "bạn hòa đồng, hay giúp đỡ bạn bè xung quanh" },
+]
+
+const MINDX_COMMENT_WEAKNESSES = [
+    {
+        key: "nói chuyện",
+        label: "Nói chuyện riêng",
+        text: "bạn hay nói chuyện riêng trong lớp",
+        action: "bạn cần tiết chế việc nói chuyện riêng, chú ý lắng nghe giảng",
+    },
+    {
+        key: "đi trễ",
+        label: "Đi trễ",
+        text: "bạn đi học trễ thường xuyên",
+        action: "bạn cần cố gắng đi đúng giờ hơn để tham gia đầy đủ hoạt động trên lớp",
+    },
+    {
+        key: "không làm bài",
+        label: "Chưa làm đủ bài",
+        text: "bạn chưa hoàn thành đủ bài tập về nhà",
+        action: "bạn cần dành thêm thời gian ở nhà để làm bài tập đầy đủ",
+    },
+    {
+        key: "thiếu tập trung",
+        label: "Thiếu tập trung",
+        text: "bạn còn dễ bị phân tâm khi học",
+        action: "bạn cần rèn luyện sự tập trung, tránh làm việc riêng",
+    },
+    {
+        key: "rụt rè",
+        label: "Rụt rè",
+        text: "bạn còn rụt rè, ít tương tác trên lớp",
+        action: "bạn cần mạnh dạn và tự tin phát biểu, tương tác với mọi người hơn",
+    },
+    {
+        key: "cẩu thả",
+        label: "Cẩu thả",
+        text: "bạn trình bày bài còn cẩu thả, hay bôi xóa",
+        action: "bạn cần cẩn thận và nắn nót hơn trong việc viết bài",
+    },
+    {
+        key: "thiếu kiên nhẫn",
+        label: "Thiếu kiên nhẫn",
+        text: "bạn thiếu kiên nhẫn khi gặp các bài tập khó",
+        action: "bạn cần kiên nhẫn suy nghĩ, không vội bỏ cuộc khi gặp bài khó",
+    },
+    {
+        key: "chưa nắm bài",
+        label: "Chưa nắm bài",
+        text: "bạn chưa nắm vững một số kiến thức cũ",
+        action: "bạn cần chủ động hỏi thầy cô khi chưa hiểu bài và ôn bài cũ nhiều hơn",
+    },
+]
+
+function formatMappedComment(items, fieldName = "text") {
+    const phrases = items.map((item) => item[fieldName]).filter(Boolean)
+
+    if (phrases.length === 0) {
+        return ""
+    }
+
+    const formattedPhrases = phrases.map((phrase, index) => {
+        const cleanedPhrase = phrase.trim()
+
+        if (index === 0) {
+            return cleanedPhrase.replace(/^bạn\b/i, "Bạn")
+        }
+
+        return cleanedPhrase.replace(/^bạn\s+/i, "")
+    })
+
+    if (formattedPhrases.length === 1) {
+        return formattedPhrases[0]
+    }
+
+    if (formattedPhrases.length === 2) {
+        return `${formattedPhrases[0]} và ${formattedPhrases[1]}`
+    }
+
+    return `${formattedPhrases.slice(0, -1).join(", ")} và ${formattedPhrases[formattedPhrases.length - 1]}`
+}
+
+function renderMindxCommentChips({ container, options, selectedKeys, tone }) {
+    container.innerHTML = options
+        .map((option) => {
+            const selectedClass = selectedKeys.includes(option.key) ? " is-selected" : ""
+            return `<button class="mindx-comment-chip mindx-comment-chip-${tone}${selectedClass}" type="button" data-key="${escapeHtml(option.key)}">${escapeHtml(option.label)}</button>`
+        })
+        .join("")
+}
+
 function injectFeedbackButtons(rootNode) {
     const findFeedbackTarget = (title) => document.evaluate(`.//div[normalize-space(text())='${title}']`, rootNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
     const renderFeedbackButtons = () => {
@@ -765,289 +866,209 @@ function setupDialogPanel(rootNode) {
                     .mindx-extension-wrapper {
                         background: #ffffff;
                         border: 1px solid #e0e6ed;
-                        border-radius: 12px;
+                        border-radius: 10px;
                         padding: 16px;
                         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
                         margin: 10px 0;
                     }
-                    .strength {
+                    .mindx-comment-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        gap: 14px;
+                    }
+                    .mindx-comment-card {
+                        border: 1px solid #edf2f7;
+                        border-radius: 8px;
+                        padding: 14px;
+                        background: #fbfdff;
+                    }
+                    .mindx-comment-card-strength {
+                        background: #f1fbf5;
+                        border-color: #d7f0df;
+                    }
+                    .mindx-comment-card-weakness {
+                        background: #fff8ed;
+                        border-color: #f8e1b8;
+                    }
+                    .mindx-comment-title {
                         font-size: 15px;
                         font-weight: 600;
                         margin-bottom: 12px;
-                        color: #007bff;
                         text-transform: uppercase;
                         letter-spacing: 0.5px;
                     }
-                    .improve {
-                        font-size: 15px;
-                        font-weight: 600;
-                        margin-bottom: 12px;
-                        color: #f39c12;
-                        text-transform: uppercase;
-                        letter-spacing: 0.5px;
+                    .mindx-comment-title-strength {
+                        color: #23884b;
                     }
-                    .advice {
-                        font-size: 15px;
-                        font-weight: 600;
-                        margin-bottom: 12px;
-                        color: #28a745;
-                        text-transform: uppercase;
-                        letter-spacing: 0.5px;
+                    .mindx-comment-title-weakness {
+                        color: #b66b00;
                     }
-
-                    select {
-                        max-width: 200px;
-                        width: 100%;
+                    .mindx-comment-chip-list {
+                        display: flex;
+                        gap: 8px;
+                        flex-wrap: wrap;
+                        align-items: center;
                     }
-                    select[name^="mindx-comment-extension-"] {
+                    .mindx-comment-chip {
+                        border: 1px solid transparent;
+                        border-radius: 999px;
                         padding: 8px 12px;
-                        border: 1px solid #dcdfe6;
-                        border-radius: 8px;
                         font-size: 14px;
+                        font-weight: 600;
                         font-family: inherit;
-                        background-color: #fdfdfd;
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                        color: #333;
-                        appearance: none;
-                        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-                        background-repeat: no-repeat;
-                        background-position: right 10px center;
-                        background-size: 16px;
-                        padding-right: 36px;
-                    }
-
-                    select[name^="mindx-comment-extension-"]:hover {
-                        border-color: #b4bccc;
-                        background-color: #fff;
-                    }
-
-                    select[name^="mindx-comment-extension-"]:focus {
-                        outline: none;
-                        border-color: #007bff;
-                        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-                    }
-
-                    button {
-                        padding: 8px;
-                        border: none;
-                        border-radius: 8px;
-                        color: white;
+                        line-height: 1.2;
                         cursor: pointer;
                         transition: all 0.2s ease;
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
-                        background-color: transparent;
+                        white-space: nowrap;
                     }
-
-                    .btn-small {
-                        padding: 6px !important;
+                    .mindx-comment-chip-strength {
+                        color: #237345;
+                        background: #e3f7ea;
+                        border-color: #bee7cc;
                     }
-
-                    button:active {
+                    .mindx-comment-chip-strength:hover,
+                    .mindx-comment-chip-strength.is-selected {
+                        color: #ffffff;
+                        background: #23884b;
+                        border-color: #23884b;
+                    }
+                    .mindx-comment-chip-weakness {
+                        color: #9a5f00;
+                        background: #fff0cf;
+                        border-color: #f2d28d;
+                    }
+                    .mindx-comment-chip-weakness:hover,
+                    .mindx-comment-chip-weakness.is-selected {
+                        color: #ffffff;
+                        background: #d47a00;
+                        border-color: #d47a00;
+                    }
+                    .mindx-comment-chip:active,
+                    #mindx-comment-extension-button-submit:active {
                         transform: scale(0.96);
                     }
-
-                    /* Add buttons */
-                    #mindx-comment-extension-button {
-                        color: #007bff;
-                        background-color: rgba(0, 123, 255, 0.1);
-                    }
-                    #mindx-comment-extension-button-improve {
-                        color: #f39c12;
-                        background-color: rgba(243, 156, 18, 0.1);
-                    }
-                    #mindx-comment-extension-button-advice {
-                        color: #28a745;
-                        background-color: rgba(40, 167, 69, 0.1);
-                    }
-
-                    #mindx-comment-extension-button:hover { background-color: rgba(0, 123, 255, 0.2); }
-                    #mindx-comment-extension-button-improve:hover { background-color: rgba(243, 156, 18, 0.2); }
-                    #mindx-comment-extension-button-advice:hover { background-color: rgba(40, 167, 69, 0.2); }
-
-                    /* Delete buttons */
-                    .mindx-comment-extension-item .mindx-comment-extension-delete {
-                        color: #dc3545;
-                        background-color: rgba(220, 53, 69, 0.1);
-                        border-radius: 8px;
-                    }
-                    .mindx-comment-extension-item .mindx-comment-extension-delete:hover {
-                        background-color: rgba(220, 53, 69, 0.2);
-                    }
-
-                    .mindx-comment-extension-item {
-                        display: flex;
-                        align-items: center;
-                        gap: 8px;
-                        padding: 6px;
-                        border-radius: 8px;
-                        transition: background-color 0.2s ease;
-                        background-color: #fafafa;
-                        border: 1px solid #f0f0f0;
-                    }
-                    .mindx-comment-extension-item:hover {
-                        background-color: #f0f4f8;
-                        border-color: #e2e8f0;
-                    }
-
                     #mindx-comment-extension-button-submit {
-                        background-color: #007bff;
+                        border: none;
+                        background-color: #2563eb;
                         color: white;
                         padding: 10px 20px;
                         font-weight: 600;
-                        margin-top: 24px;
+                        margin-top: 16px;
                         border-radius: 8px;
                         width: 100%;
                         box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+                        cursor: pointer;
+                        transition: all 0.2s ease;
                     }
                     #mindx-comment-extension-button-submit:hover {
-                        background-color: #0069d9;
+                        background-color: #1d4ed8;
                         box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
                     }
-
-                    .section-container {
-                        margin-bottom: 24px;
-                        padding-bottom: 20px;
-                        border-bottom: 1px solid #f0f0f0;
-                    }
-                    .section-container:last-of-type {
-                        border-bottom: none;
-                        margin-bottom: 0;
-                        padding-bottom: 0;
-                    }
-
-                    .items-wrapper {
-                        display: flex;
-                        gap: 10px;
-                        flex-wrap: wrap;
-                        align-items: center;
+                    @media (max-width: 720px) {
+                        .mindx-comment-grid {
+                            grid-template-columns: 1fr;
+                        }
                     }
                 </style>
-                <div class="section-container">
-                    <p class="strength">Điểm mạnh của học viên</p>
-                    <div class="items-wrapper">
-                        <button id="mindx-comment-extension-button" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                        </button>
-                        <div class="items-wrapper" id="mindx-comment-extension-container"></div>
+                <div class="mindx-comment-grid">
+                    <div class="mindx-comment-card mindx-comment-card-strength">
+                        <p class="mindx-comment-title mindx-comment-title-strength">Điểm mạnh của học viên</p>
+                        <div class="mindx-comment-chip-list" id="mindx-comment-extension-strengths"></div>
                     </div>
-                </div>
-                <div class="section-container">
-                    <p class="improve">Cần cải thiện</p>
-                    <div class="items-wrapper">
-                        <button id="mindx-comment-extension-button-improve" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                        </button>
-                        <div class="items-wrapper" id="mindx-comment-extension-container-improve"></div>
-                    </div>
-                </div>
-                <div class="section-container">
-                    <p class="advice">Lời khuyên</p>
-                    <div class="items-wrapper">
-                        <button id="mindx-comment-extension-button-advice" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                        </button>
-                        <div class="items-wrapper" id="mindx-comment-extension-container-advice"></div>
+                    <div class="mindx-comment-card mindx-comment-card-weakness">
+                        <p class="mindx-comment-title mindx-comment-title-weakness">Cần cải thiện</p>
+                        <div class="mindx-comment-chip-list" id="mindx-comment-extension-weaknesses"></div>
                     </div>
                 </div>
                 <button id="mindx-comment-extension-button-submit" type="button">Tạo bình luận</button>
             </div>`
 
-            chrome.runtime.sendMessage({ type: "GET_NX" }, (response) => {
-                const data = response?.data || { strengths: [], improvements: [], advice: [] }
-                const savedCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
-                const sortByCount = (a, b) => (savedCounts[b] || 0) - (savedCounts[a] || 0)
+            const savedCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
+            const sortByCount = (a, b) => (savedCounts[b.key] || 0) - (savedCounts[a.key] || 0)
+            const strengthOptions = [...MINDX_COMMENT_STRENGTHS].sort(sortByCount)
+            const weaknessOptions = [...MINDX_COMMENT_WEAKNESSES].sort(sortByCount)
+            const selectedStrengthKeys = []
+            const selectedWeaknessKeys = []
+            const strengthContainer = parentElement.querySelector("#mindx-comment-extension-strengths")
+            const weaknessContainer = parentElement.querySelector("#mindx-comment-extension-weaknesses")
+            const submitButton = parentElement.querySelector("#mindx-comment-extension-button-submit")
 
-                data.strengths = (data.strengths || []).sort(sortByCount)
-                data.improvements = (data.improvements || []).sort(sortByCount)
-                data.advice = (data.advice || []).sort(sortByCount)
+            if (!strengthContainer || !weaknessContainer || !submitButton) {
+                return
+            }
 
-                const strengthState = []
-                const improvementState = []
-                const adviceState = []
-
-                const strengthContainer = parentElement.querySelector("#mindx-comment-extension-container")
-                const improvementContainer = parentElement.querySelector("#mindx-comment-extension-container-improve")
-                const adviceContainer = parentElement.querySelector("#mindx-comment-extension-container-advice")
-                const strengthAddButton = parentElement.querySelector("#mindx-comment-extension-button")
-                const improvementAddButton = parentElement.querySelector("#mindx-comment-extension-button-improve")
-                const adviceAddButton = parentElement.querySelector("#mindx-comment-extension-button-advice")
-                const submitButton = parentElement.querySelector("#mindx-comment-extension-button-submit")
-
-                if (!strengthContainer || !improvementContainer || !adviceContainer || !strengthAddButton || !improvementAddButton || !adviceAddButton || !submitButton) {
+            const toggleSelectedKey = (selectedKeys, key) => {
+                const selectedIndex = selectedKeys.indexOf(key)
+                if (selectedIndex >= 0) {
+                    selectedKeys.splice(selectedIndex, 1)
                     return
                 }
 
-                const renderStrengths = createSelectableGroup({
-                    state: strengthState,
-                    options: data.strengths || [],
+                selectedKeys.push(key)
+            }
+
+            const renderChips = () => {
+                renderMindxCommentChips({
                     container: strengthContainer,
-                    groupName: "strengths",
-                    placeholder: "-- Chọn điểm mạnh --",
+                    options: strengthOptions,
+                    selectedKeys: selectedStrengthKeys,
+                    tone: "strength",
                 })
-
-                const renderImprovements = createSelectableGroup({
-                    state: improvementState,
-                    options: data.improvements || [],
-                    container: improvementContainer,
-                    groupName: "improvements",
-                    placeholder: "-- Chọn cần cải thiện --",
+                renderMindxCommentChips({
+                    container: weaknessContainer,
+                    options: weaknessOptions,
+                    selectedKeys: selectedWeaknessKeys,
+                    tone: "weakness",
                 })
+            }
 
-                const renderAdvice = createSelectableGroup({
-                    state: adviceState,
-                    options: data.advice || [],
-                    container: adviceContainer,
-                    groupName: "advice",
-                    placeholder: "-- Chọn lời khuyên --",
-                })
+            strengthContainer.addEventListener("click", (event) => {
+                const chip = event.target.closest(".mindx-comment-chip")
+                if (!chip || !strengthContainer.contains(chip)) {
+                    return
+                }
 
-                strengthAddButton.addEventListener("click", () => {
-                    strengthState.push({ value: "" })
-                    renderStrengths()
-                })
-
-                improvementAddButton.addEventListener("click", () => {
-                    improvementState.push({ value: "" })
-                    renderImprovements()
-                })
-
-                adviceAddButton.addEventListener("click", () => {
-                    adviceState.push({ value: "" })
-                    renderAdvice()
-                })
-
-                submitButton.addEventListener("click", () => {
-                    const selectedStrengths = strengthState.map((item) => item.value).filter(Boolean)
-                    const selectedImprovements = improvementState.map((item) => item.value).filter(Boolean)
-                    const selectedAdvice = adviceState.map((item) => item.value).filter(Boolean)
-
-                    const allSelected = [...selectedStrengths, ...selectedImprovements, ...selectedAdvice]
-                    if (allSelected.length > 0) {
-                        const currentCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
-                        allSelected.forEach((val) => {
-                            currentCounts[val] = (currentCounts[val] || 0) + 1
-                        })
-                        localStorage.setItem("mindx-comment-counts", JSON.stringify(currentCounts))
-                    }
-
-                    const danhgialoikhuyen = rootNode.querySelector(".quill .ql-container .ql-editor")
-                    if (danhgialoikhuyen) {
-                        danhgialoikhuyen.innerHTML = `<ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Điểm mạnh: ${escapeHtml(selectedStrengths.join(", "))}                     </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Cần cải thiện: ${escapeHtml(selectedImprovements.join(", "))}                    </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Lời khuyên: ${escapeHtml(selectedAdvice.join(", "))}</li></ol>`
-                    }
-                })
+                toggleSelectedKey(selectedStrengthKeys, chip.dataset.key)
+                renderChips()
             })
+
+            weaknessContainer.addEventListener("click", (event) => {
+                const chip = event.target.closest(".mindx-comment-chip")
+                if (!chip || !weaknessContainer.contains(chip)) {
+                    return
+                }
+
+                toggleSelectedKey(selectedWeaknessKeys, chip.dataset.key)
+                renderChips()
+            })
+
+            submitButton.addEventListener("click", () => {
+                const selectedStrengths = selectedStrengthKeys.map((key) => strengthOptions.find((item) => item.key === key)).filter(Boolean)
+                const selectedWeaknesses = selectedWeaknessKeys.map((key) => weaknessOptions.find((item) => item.key === key)).filter(Boolean)
+                const allSelectedKeys = [...selectedStrengthKeys, ...selectedWeaknessKeys]
+
+                if (allSelectedKeys.length > 0) {
+                    const currentCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
+                    allSelectedKeys.forEach((key) => {
+                        currentCounts[key] = (currentCounts[key] || 0) + 1
+                    })
+                    localStorage.setItem("mindx-comment-counts", JSON.stringify(currentCounts))
+                }
+
+                const strengthComment = formatMappedComment(selectedStrengths)
+                const weaknessComment = formatMappedComment(selectedWeaknesses)
+                const adviceComment = formatMappedComment(selectedWeaknesses, "action")
+                const danhgialoikhuyen = rootNode.querySelector(".quill .ql-container .ql-editor")
+
+                if (danhgialoikhuyen) {
+                    danhgialoikhuyen.innerHTML = `<ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Điểm mạnh: ${escapeHtml(strengthComment)}</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Cần cải thiện: ${escapeHtml(weaknessComment)}</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Lời khuyên: ${escapeHtml(adviceComment)}</li></ol>`
+                }
+            })
+
+            renderChips()
             const parentParentContainer = parentElement.parentElement.parentElement
             const targetLabel = "Đánh giá chung"
 
