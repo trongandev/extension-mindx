@@ -249,7 +249,7 @@ styleFeedback.textContent = `
 }
 
 `
-const DURATION_TIME = 50
+const DURATION_TIME = 150
 
 function handleRandomFeedback(btn, bodyContainer) {
     let feedbackChoose = btn === "btn1" ? FEEDBACK_ARRAY_2[0] : btn === "btn2" ? FEEDBACK_ARRAY_2[1] : FEEDBACK_ARRAY_2[2]

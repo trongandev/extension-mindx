@@ -1,0 +1,41 @@
+name: Publish Chrome Extension
+
+on:
+    push:
+        tags:
+            - "ext-v*"
+
+jobs:
+    build-and-publish:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Bump version from tag
+              run: |
+                  # Lấy version từ tag: ext-v1.2.3 → 1.2.3
+                  VERSION=$(echo "${{ github.ref_name }}" | sed 's/^ext-v//')
+                  echo "Publishing version: $VERSION"
+
+                  # Cập nhật manifest.json
+                  jq ".version = \"$VERSION\"" extension-mindx/manifest.json > tmp.json && mv tmp.json extension-mindx/manifest.json
+
+                  # Hiển thị version đã set
+                  echo "manifest.json version: $(jq -r '.version' extension-mindx/manifest.json)"
+
+            - name: Zip extension
+              working-directory: extension-mindx
+              run: |
+                  cd dist
+                  zip -r ../extension.zip .
+
+            - name: Upload to Chrome Web Store
+              uses: trmcnvn/chrome-addon@v2
+              with:
+                  extension: ${{ secrets.EXTENSION_ID }}
+                  zip: extension-mindx/extension.zip
+                  client-id: ${{ secrets.CLIENT_ID }}
+                  client-secret: ${{ secrets.CLIENT_SECRET }}
+                  refresh-token: ${{ secrets.REFRESH_TOKEN }}
