@@ -1,4 +1,7 @@
 const LEVEL_COURSE = {
+    ROBB: "Robotics 4+ Basic",
+    ROBA: "Robotics 4+ Advanced",
+    ROBI: "Robotics 4+ Intensive",
     PREB: "Pre-Robotics Basic",
     PREA: "Pre-Robotics Advanced",
     PREI: "Pre-Robotics Intensive",
@@ -23,7 +26,7 @@ const LEVEL_COURSE = {
     CSB: "Computer Scientist Basic",
     CSA: "Computer Scientist Advanced",
     CSI: "Computer Scientist Intensive",
-}
+};
 
 const FEEDBACK_ARRAY = [
     [
@@ -91,7 +94,7 @@ const FEEDBACK_ARRAY = [
         "- Bạn luôn hoàn thành đầy đủ và đúng hạn các bài tập về nhà, thể hiện sự nghiêm túc và trách nhiệm trong học tập.",
         "- Bạn học rất chăm chỉ và hoàn thành xuất sắc các bài tập về nhà, thể hiện sự tận tâm và đam mê học tập.",
     ],
-]
+];
 
 const FEEDBACK_ARRAY_2 = [
     [
@@ -148,7 +151,7 @@ const FEEDBACK_ARRAY_2 = [
             "Lời khuyên: Bạn nên tiếp tục nâng cao trình độ và xem xét những hướng đi mới trong lĩnh vực công nghệ thông tin.",
         ],
     ],
-]
+];
 
 const STYLE = `
      .comment-button-mindx-container {
@@ -195,7 +198,7 @@ const STYLE = `
         .btn-cmt:active {
             transform: scale(0.95);
         }
-    `
+    `;
 
 const STYLE_FEEDBACK = `
 .mindx-feedback-container {
@@ -272,7 +275,7 @@ const STYLE_FEEDBACK = `
     position: absolute;
 }
 
-`
+`;
 
 const MINDX_COMMENT_STRENGTHS = [
     { key: "tốt", label: "Tốt", text: "bạn học tốt, hiểu được bài học" },
@@ -285,7 +288,7 @@ const MINDX_COMMENT_STRENGTHS = [
     { key: "phát biểu", label: "Phát biểu", text: "bạn năng nổ, hăng hái phát biểu xây dựng bài" },
     { key: "cẩn thận", label: "Cẩn thận", text: "bạn làm bài cẩn thận, trình bày sạch đẹp" },
     { key: "hòa đồng", label: "Hòa đồng", text: "bạn hòa đồng, hay giúp đỡ bạn bè xung quanh" },
-]
+];
 
 const MINDX_COMMENT_WEAKNESSES = [
     {
@@ -336,9 +339,36 @@ const MINDX_COMMENT_WEAKNESSES = [
         text: "bạn chưa nắm vững một số kiến thức cũ",
         action: "bạn cần chủ động hỏi thầy cô khi chưa hiểu bài và ôn bài cũ nhiều hơn",
     },
-]
+];
 
 const LEARN_FROM_MINDX = {
+    ROBB: [
+        "Học viên làm quen với bộ Kit Lego Spike và các thành phần cơ bản như khối gạch Lego, LED, động cơ, cảm biến màu sắc",
+        "Nhận biết màu sắc: trắng, đỏ, cam, vàng, xanh lá, xanh dương",
+        "Hiểu động cơ xoay 2 chiều trái-phải, cấu tạo bánh xe và ứng dụng trong robot",
+        "Nắm kiến thức về cảm biến: cảm biến màu sắc và cảm biến âm thanh",
+        "Lắp ráp mô hình cơ bản kết hợp động cơ, LED và cảm biến",
+        "Vận dụng block lệnh động cơ, cảm biến và âm thanh để lập trình robot theo 2-3 bước",
+        "Làm quen khái niệm toán tư duy: đếm 1-5, phân biệt hình dạng, so sánh âm thanh, tốc độ và chiều cao",
+        "Xác định quy luật về thứ tự và làm quen các khái niệm khoa học như ánh sáng, cối xay gió, thói quen các loài vật",
+    ],
+    ROBA: [
+        "Làm quen với câu lệnh nâng cao như điều khiển 2 động cơ, vòng lặp vô hạn",
+        "Nắm được kiến thức về cảm biến nâng cao như cảm biến nghiêng trong bộ não Robot vận dụng vào mô hình",
+        "Nắm được kiến thức về lực đàn hồi của dây chun, sử dụng trong mô hình để di chuyển",
+        "Luyện tập và vận dụng các Block lệnh điều khiển 2 động cơ, vòng lặp, cảm biến nghiêng, lập trình Robot hoạt động theo đúng thứ tự 3-5 bước",
+        "Phát triển tư duy toán học thông qua các hoạt động thực hành như đếm số bước hay số vòng quay từ 1-10, so sánh kích thước, số lượng, khoảng cách",
+        "Làm quen với kiến thức khoa học như tầm quan trọng của việc bảo tồn động vật, đặc điểm và môi trường sống đặc trưng của một số loài vật",
+    ],
+    ROBI: [
+        "Nắm được các khái niệm về sự truyền tin, vận chuyển, các hiện tượng thực tế như động đất",
+        "Biết được sự quan trọng của việc bảo vệ môi trường",
+        "Vận dụng các Block lệnh chuyên sâu như Message Block để truyền tin giữa các đoạn chương trình",
+        "Thực hiện kéo-thả và sắp xếp xây dựng 2 đoạn chương trình liên kết với nhau qua Message Block",
+        "Nắm được kiến thức về vòng lặp với số lần biết trước, thao tác lập trình chương trình thực hiện lặp từ 1-10 lần",
+        "Nắm được chính xác công dụng của đoạn chương trình và có thể giải thích bằng lời nói",
+        "Phát triển tư duy toán học qua các hoạt động so sánh nhất, đếm và chọn số lượng tương ứng, sắp sếp trình tự,...",
+    ],
     SB: [
         "Bạn có thể tự mình thiết kế được một trò chơi đơn giản theo ý muốn của mình",
         "Bạn nhìn được trục X,Y trong lập trình game",
@@ -450,4 +480,4 @@ const LEARN_FROM_MINDX = {
         "Bạn đã có sản phẩm cuối khóa do chính bạn tạo ra dựa trên ý tưởng của bản thân",
         "Bạn được học thêm về cách thiết kế slide và cách thuyết trình về bản thân cũng như sản phẩm của mình",
     ],
-}
+};

@@ -1294,5 +1294,191 @@
                 "lession_content": "THUYẾT TRÌNH CUỐI KHOÁ\nThuyết trình giới thiệu sản phẩm cuối khóa.\nNhận xét, đánh giá và trao giải."
             }
         ]
+    },
+    {
+        "name": "ROBB",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "NGƯỜI BẠN ROBOT\nPhổ biến quy định lớp học Robot\nTìm hiểu cơ bản về khái niệm Robot và cách Robot hỗ trợ trong cuộc sống\nTham gia trò chơi \"Đóng giả Robot\"\nLàm quen và nhận biết màu sắc của các khối gạch trong bộ Kit Spike Essential\nLựa chọn các khối gạch và xây dựng mô hình Robot hình người đơn giản dựa trên hướng dẫn"
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "CHIẾC ĐÈN PIN KỲ DIỆU\nTìm hiểu về ánh sáng, ý nghĩa của ánh sáng trong cuộc sống\nTham gia trò chơi \"Bật tắt ánh sáng\"\nLàm quen với hình dạng thiết bị LED trong bộ Kit\nLàm quen với Light Block lập trình cho thiết bị LED phát sáng\nXây dựng mô hình đèn Pin với LED đơn giản với khả năng chiếu sáng trong bóng tối\nVận dụng các Block lệnh làm đèn Pin sáng"
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "PHIÊU LƯU CÙNG CỐI XAY GIÓ\nTìm hiểu về gió, ý nghĩa của gió trong cuộc sống\nTham gia trò chơi \"Gió thổi gió thổi\"\nLàm quen với các thành phần và ý nghĩa cơ bản của cối xay gió\nLàm quen với thiết bị động cơ và Motor Block\nXây dựng mô hình cối xay gió sử dụng 1 động cơ, có thể xoay theo 2 chiều kim đồng hồ"
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "THẾ GIỚI SẮC MÀU KỲ DIỆU\nTìm hiểu về cầu vồng\nTham gia trò chơi \"Đoản màu vỗ tay\"\nLàm quen với Random Light Block và Wait\nXây dựng mô hình Đèn lồng từ các khối gạch, sử dụng đèn LED phát sáng để thay đổi màu sắc ngẫu nhiên\nVận dụng Block lập trình mô hình thay đổi màu đa dạng"
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "CÔNG XƯỞNG SÁNG TẠO\nÔn tập về kiến thức đã học từ các buổi trước\nTìm hiểu tín hiệu đèn giao thông\nTham gia trò chơi \"Đèn giao thông\"\nTiếp cận tới khái niệm lập trình tuần tự\nXây dựng mô hình cột đèn giao thông với khả năng thay đổi tín hiệu đèn"
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "ĐÈN CẢNH BÁO ĐỘNG VẬT\nTìm hiểu về biển cảnh báo và màu sắc của chúng (đỏ, xanh, vàng)\nTham gia trò chơi \"Động vật và tín hiệu cảnh báo\"\nLàm quen với hình dạng của cảm biến màu sắc\nLàm quen với Sound Effect Block và Color Sensor Block\nXây dựng mô hình sử dụng cảm biến màu sắc với khả năng phát âm thanh cảnh báo khi phát hiện động vật hoang dã"
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "ROBOT LẮNG NGHE\nTìm hiểu về cảm biến âm thanh trong bộ não Robot\nTham gia trò chơi \"Robot học sinh\"\nLàm quen với Sound Sensor Block để lập trình cho cảm biến âm thanh\nXây dựng mô hình Robot đánh gôn với 1 động cơ thực hiện hành động đánh bóng khi phát hiện âm thanh vỗ tay"
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "SIÊU XE KHÁM PHÁ ĐƯỜNG HẦM\nTìm hiểu cơ bản các thành phần của xe khám phá đường hầm, hang động (đèn phát sáng, bánh xe di chuyển)\nTham gia trò chơi \"Đoàn xe\"\nTìm hiểu về hình dạng của bánh xe và chuyển động quay\nXây dựng mô hình xe khám phá đường hầm với đèn LED phát sáng trong đường hầm tối"
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "CÔNG XƯỞNG SÁNG TẠO\nÔn tập kiến thức từ các buổi học trước về cảm biến màu sắc, cảm biến âm thanh và các Block lệnh của cảm biến\nSáng tạo xây dựng mô hình với 1 động cơ\nVận dụng kiến thức lập trình mô hình hoạt động"
+            },
+            {
+                "section": "Buổi 10",
+                "lession_content": "THẾ GIỚI ĐỘNG VẬT\nTìm hiểu về thói quen của một số loài động vật\nTham gia trò chơi \"Đoản loài vật\"\nXây dựng mô hình mô phỏng hươu cao cổ với cảm biến màu sắc và đèn LED, thay đổi màu sắc của đèn LED khi hươu cao cổ phát hiện lá cây\nVận dụng thẻ lệnh lập trình mô hình hoạt động"
+            },
+            {
+                "section": "Buổi 11",
+                "lession_content": "THÀNH PHỐ TRONG MƠ\nTìm hiểu cơ bản về thành phố gồm các tòa nhà cao tầng\nTham gia trò chơi \"Ai sống ở đâu\"\nSáng tạo xây dựng các tòa nhà cao tầng bằng khối gạch có các công trình sử dụng động cơ và đèn LED, tạo nên thành phố hiện đại\nVận dụng các Block đã học lập trình các công trình có động cơ và đèn LED hoạt động"
+            },
+            {
+                "section": "Buổi 12",
+                "lession_content": "CÔNG VIÊN GIẢI TRÍ\nTìm hiểu về công viên và các thành phần cơ bản trong công viên (cây cối, xích đu, khu vực chơi cát, đường đi bộ,..)\nTham gia trò chơi \"Tàu lượn siêu tốc\"\nXây dựng mô hình trò chơi trong công viên, có thể thay đổi tốc độ như bấp bênh, đu quay."
+            },
+            {
+                "section": "Buổi 13",
+                "lession_content": "DEMO ROBOT\nHọc viên thực hành dự án cuối khóa\nÔn tập kiến thức đã học\nDemo Robot hoạt động\nThuyết trình giới thiệu về dự án của nhóm"
+            },
+            {
+                "section": "Buổi 14",
+                "lession_content": "THUYẾT TRÌNH ROBOT\nThuyết trình cuối khóa"
+            }
+        ]
+    },
+    {
+        "name": "ROBA",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "HÀNH TRÌNH KHÁM PHÁ SỞ THÚ\nTìm hiểu về sở thú, nơi bảo tồn các loài vật hoang dã\nTham gia trò chơi \"Đoán hướng của vật\"\nÔn tập tên và hình dạng của các thiết bị điện tử\nLàm quen với Movement Block điều khiến 2 động cơ\nXây dựng mô hình xe bus với thiết kế có không gian cho du khách tham quan với 2 động cơ giúp xe di chuyến"
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "THỎ CON NHẢY NHÓT\nTìm hiểu hình dáng, đặc điểm nổi bật của loài thỏ (tai dài và sự nhanh nhẹn)\nTìm hiểu sự co giần của dây chun\nTham gia trò chơi \"Con thỏ ăn có\"\nXây dựng mô hình chú thỏ với 1 động cơ mô phỏng lại cách di chuyến của loài thỏ"
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "CHÚ KHỈ TINH NGHỊCH\nTìm hiểu về đặc điểm và hình dạng của loài khỉ (sống trên cây, có thể leo trèo linh hoạt...)\nTham gia trò chơi \"Khỉ nhảy múa\"\nLàm quen với Forever Loop và Record Sound\nXây dựng mô hình chú Khỉ với 2 động cơ để mô phỏng lại cách di chuyển trên mặt đất của loài khỉ\nVận dụng Block lệnh lập trình mô hình chú khỉ di chuyển và phát âm thanh theo chuỗi hành động"
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "NGƯỜI BẠN NHỎ TRONG CÒ\nTìm hiểu về đặc điểm của loài Dế (tiếng kêu đặc trưng)\nLắng nghe câu chuyện \"Dế mèn phiêu lưu: Bênh vực kẻ yếu\nXây dựng mô hình bạn Dề với 2 động cơ để mô phỏng lại cách di chuyển của loài để"
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "CÔNG XƯỞNG SÁNG TẠO\nÔn tập kiến thức, công dụng các Block lệnh từ các buổi trước và chủ đề đã học\nSáng tạo xây dựng mô hình mô phỏng loài vật, xe bus\nCùng các nhóm trong lớp tạo thành sở thú mini"
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "NHẢY NHÓT CÙNG BẠN CỦA\nTìm hiểu về đặc điểm và hình dạng của loài cua (cách di chuyển đặc trưng, đôi càng cua)\nLàm quen với cảm biến nghiêng trong bộ não Robot\nTham gia trò chơi \"Dáng đi của chú cua\"\nXây dựng mô hình gồm 2 động cơ kết hợp với cảm biến nghiêng để mô phỏng lại cách di chuyển của loài cua"
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "CHÚ CHIM VÙNG NAM CỰC\nTìm hiểu về loài chim cánh cụt và môi trường sống khắc nghiệt của chúng (bộ lông giúp loài chim giữ ẩm)\nTham gia trò chơi \"Dì chuyển như chim cánh cụt\"\nXây dựng mô hình gồm 2 động cơ để mô phỏng lại cách di chuyển của loài chim cánh cụt"
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "CHƠI ĐÙA CÙNG HẢI CẦU\nTìm hiểu về loài Hải cấu\nTham gia trò chơi lớp học \"Gương soi\"\nXây dựng mô hình mô phỏng Hải cẩu\n-Vận dụng Block lệnh lập trình mô hình hoạt động"
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "CÔNG XƯỞNG SÁNG TẠO\nÔn tập các kiến thức đã học\nSáng tạo dựa trên các mô hình đã học từ khối gạch, động cơ và cảm biến\nTham gia hoạt động \"Sở thú thử thách\" giữa các nhóm trong lớp"
+            },
+            {
+                "section": "Buổi 10",
+                "lession_content": "CHÚ VOI CON Ở BẢN ĐÔN\nTìm hiểu về loài voi và môi trường sống của loài Voi\nTham gia trò chơi \"Dùng vòi lấy vật\"\nXây dựng mô hình mô phỏng loài Voi với 1 động cơ kết hợp với cảm biến màu sắc"
+            },
+            {
+                "section": "Buổi 11",
+                "lession_content": "HƯƠU CAO CỔ TÌM THỨC ĂN\nTìm hiểu về đặc điểm và hình dạng của loài Hươu cao cổ\nTham gia trò chơi \"Cao-Thấp\"\nXây dựng mô hình mô phỏng loài Hươu cao cổ với 1 động cơ thực hiện hành động ăn lá cây trên cao"
+            },
+            {
+                "section": "Buổi 12",
+                "lession_content": "NGƯỜI BẠN CỦA MỌI NHÀ\nTìm hiểu về loài chó và sự trung thành\nTham gia trò chơi \"Đoán cảm xúc\"\nXây dựng mô hình chú chó có sử dụng 2 động cơ hỗ trợ di chuyển và có thể phát âm thanh\nVận dụng Movement Block để chú chó có thể di chuyển các hướng các nhau"
+            },
+            {
+                "section": "Buổi 13",
+                "lession_content": "DEMO ROBOT\nHọc viên thực hành dự án cuối khóa\nÔn tập kiến thức đã học\nDemo Robot hoạt động\nThuyết trình giới thiệu về dự án của nhóm"
+            },
+            {
+                "section": "Buổi 14",
+                "lession_content": "THUYẾT TRÌNH ROBOT\nThuyết trình cuối khóa"
+            }
+        ]
+    },
+    {
+        "name": "ROBI",
+        "date": "2026",
+        "CAR": [
+            {
+                "section": "Buổi 1",
+                "lession_content": "ĐÀI PHÁT THANH\nTìm hiểu khái niệm về sự truyền tin\nTham gia trò chơi \"Tôi nói-Bạn nghe\"\nLàm quen với Send message Block và Receive message Block\nXây dựng mô hình truyền tin\nVận dụng kiến thức lập trình mô hình hoạt động nhờ sự truyền tin"
+            },
+            {
+                "section": "Buổi 2",
+                "lession_content": "SIÊU NHÂN DỌN DẸP\nTìm hiểu về một số biện pháp bảo vệ môi trường\nTham gia trò chơi \"Robot dọn dẹp\"\nXây dựng mô hình Robot có hầm thu gom rác, sử dụng 2 động cơ để di chuyển nhiều hướng khác nhau\nVận dụng kiến thức lập trình Robot dọn dẹp\nTham gia thi đua lớp học"
+            },
+            {
+                "section": "Buổi 3",
+                "lession_content": "CỖ XE VẬN CHUYẾN\nKhái niệm về sự vận chuyến\nTham gia trò chơi \"Xe bus đón khách\"\nXây dựng mô hình xe vận chuyển sử dụng 2 động cơ di chuyển, có khả năng vận chuyển đồ vật\nVận dụng kiến thức lập trình xe vận chuyển"
+            },
+            {
+                "section": "Buổi 4",
+                "lession_content": "CHÚ ONG THỢ SIÊNG NĂNG\nTìm hiểu về tập tính loài ong và sự kiên trì, cần cù\nTham gia trò chơi \"Chủ ong chăm chỉ\"\nÔn tập Color Sensor Block, Sound effect Block\nXây dựng mô hình mô phỏng chú ong từ gạch LEGO\nVận dụng kiến thức Block lệnh lập trình mô phỏng tập tính của loài ong"
+            },
+            {
+                "section": "Buổi 5",
+                "lession_content": "CÔNG XƯỞNG SÁNG TẠO\nÔn tập kiến thức các Block đã học điều khiến 2 động cơ và LED, Block lệnh truyền tin.\nSáng tạo xây dựng và nâng cấp mô hình từ các bài trước\nVận dụng các Block lệnh đã học lập trình mô hình hoạt động"
+            },
+            {
+                "section": "Buổi 6",
+                "lession_content": "CUỘC ĐUA KỲ THÚ\nTìm hiểu khái niệm về tốc độ và các loại xe đua\nTham gia trò chơi \"Cuộc đua tiếp sức\"\nLàm quen Block lệnh thay đổi tốc độ của 2 động cơ\nXây dựng mô hình xe đua sử dụng 2 động cơ có thể di chuyến được nhiều hướng\nTham gia thi đua trong lớp học"
+            },
+            {
+                "section": "Buổi 7",
+                "lession_content": "NÔNG DÂN CHĂM CHỈ\nTìm hiểu về người nông dân và công việc làm nông\nTham gia trò chơi \"Trồng cây\"\nLuyện tập tập kiến thức về Light Block và Motor Block\nXây dựng mô hình mô phỏng sử dụng 1 động cơ mô phỏng lại hành động người nông dân đang làm việc trên cánh đồng"
+            },
+            {
+                "section": "Buổi 8",
+                "lession_content": "HỌA SĨ NHÍ\nTìm hiểu về người họa sĩ và tranh vẽ\nTham gia trò chơi \"Vẽ bằng xúc giác\"\nXây dựng mô hình robot vẽ tranh với 2 động cơ kết hợp với vòng lặp để vẽ tranh cơ bản"
+            },
+            {
+                "section": "Buổi 9",
+                "lession_content": "CÔNG XƯỞNG SÁNG TẠO\nÔn tập kiến thức đã học về vòng lặp và các Block lệnh\nSáng tạo xây dựng và nâng cấp mô hình từ các bài trước\nVận dụng các Block lệnh đã học lập trình cho mô hình"
+            },
+            {
+                "section": "Buổi 10",
+                "lession_content": "CHIẾC THUYỀN RA KHƠI\nTìm hiểu khái niệm về thuyền tàu, cách tàu thuyền có thể nổi trên mặt nước\nTìm hiểu đèn báo hiệu\nTham gia trò chơi \"Thuyền nổi, thuyền chìm\"\nXây dựng mô hình mô phỏng lại chiếc thuyền chuẩn bị ra khơi với đèn LED báo hiệu thời tiết"
+            },
+            {
+                "section": "Buổi 11",
+                "lession_content": "MẶT ĐẤT RUNG CHUYỂN\nTìm hiểu về khái niệm động đất và các việc nên làm khi xảy ra động đất\nTham gia trò chơi \"Mặt đất di chuyển\"\nXây dựng mô hình có sử dụng 1 động cơ mô phỏng lại chuyển động của mặt đất và sự rung lắc của đồ vật"
+            },
+            {
+                "section": "Buổi 12",
+                "lession_content": "TRỰC THĂNG GIẢI CỨU\nTìm hiểu về cấu trúc cơ bản của máy bay trực thăng (chức năng của các cánh quạt trên máy bay)\nTham gia trò chơi \"Phi công điều khiển\"\nXây dựng mô hình máy bay trực thăng với 2 động cơ, có thể đổi chiều xoay dựa trên cảm biến nghiêng"
+            },
+            {
+                "section": "Buổi 13",
+                "lession_content": "DEMO ROBOT\nHọc viên thực hành dự án cuối khóa\nÔn tập kiến thức đã học\nDemo Robot hoạt động\nThuyết trình giới thiệu về dự án của nhóm"
+            },
+            {
+                "section": "Buổi 14",
+                "lession_content": "THUYẾT TRÌNH ROBOT\nThuyết trình cuối khóa"
+            }
+        ]
     }
 ]

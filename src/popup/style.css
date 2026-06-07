@@ -32,6 +32,38 @@ body {
     border-color: #ff3d45;
 }
 
+.mindx-comment-container .suggest {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.mindx-comment-container .suggest .suggest-item {
+    border: 1px solid #ffd2d4;
+    background: linear-gradient(180deg, #fff 0%, #fff5f6 100%);
+    color: #a63439;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mindx-comment-container .suggest .suggest-item:hover {
+    background: #ff3d45;
+    color: #fff;
+    border-color: #ff3d45;
+    transform: translateY(-1px);
+}
+
+.mindx-comment-container .suggest .suggest-item:focus-visible {
+    outline: 2px solid #ff3d45;
+    outline-offset: 1px;
+}
+
 .mindx-comment-container .result {
     display: flex;
     flex-direction: column;

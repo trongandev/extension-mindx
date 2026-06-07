@@ -6,6 +6,11 @@ from PyQt5.QtCore import Qt
 from PyQt6.QtCore import QTimer
 import json
 import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "database.json"))
+UI_PATH = os.path.join(BASE_DIR, "tool.ui")
+
 class Database:
     def __init__(self,name,date,CAR):
         self.name = name
@@ -16,7 +21,7 @@ class Database:
 class PageHome(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.ui = uic.loadUi("tool.ui",self)
+        self.ui = uic.loadUi(UI_PATH,self)
         
         self.ui.btnSave.clicked.connect(self.saveData)
         self.ui.txtName.textChanged.connect(self.checkNameExists)
@@ -36,7 +41,7 @@ class PageHome(QMainWindow):
         # Kiểm tra file database.json
         
         
-        file_path = "../src/database.json"
+        file_path = DATABASE_PATH
         if not os.path.exists(file_path):
             return
             
@@ -107,6 +112,7 @@ class PageHome(QMainWindow):
         name = self.ui.txtName.text()
         current_year = datetime.now().year
         print(current_year)
+        active_tab_name = self.ui.tabWidget.currentWidget().objectName()
         
         _1 = self.ui._1.toPlainText()
         _2 = self.ui._2.toPlainText()
@@ -136,6 +142,12 @@ class PageHome(QMainWindow):
                 })
         
         # Tạo đối tượng dữ liệu hoàn chỉnh
+        if active_tab_name == "tab_2":
+            lessons = self.parseLessonsFromPlainText(self.ui.plainTextEdit.toPlainText())
+        elif active_tab_name != "tab":
+            QMessageBox.warning(self, "Save Error", "Khong xac dinh duoc tab dang chon.")
+            return
+
         data = {
             "name": name,
             "date": str(current_year),
@@ -144,7 +156,7 @@ class PageHome(QMainWindow):
         
         print(data)
         
-        file_path = "../src/database.json"
+        file_path = DATABASE_PATH
         try:
             existing_data = []
             name_exists = False
@@ -162,7 +174,13 @@ class PageHome(QMainWindow):
                     for i, item in enumerate(existing_data):
                         if item.get("name") == name:
                             # Cập nhật dữ liệu hiện có
-                            existing_data[i] = data
+                            if active_tab_name == "tab_2":
+                                if not isinstance(item.get("CAR"), list):
+                                    item["CAR"] = []
+                                item["CAR"].extend(lessons)
+                                item["date"] = str(current_year)
+                            else:
+                                existing_data[i] = data
                             name_exists = True
                             print(f"Updated existing record for: {name}")
                             break
@@ -186,6 +204,29 @@ class PageHome(QMainWindow):
             return
         
         QMessageBox.information(self, "Success", "Data saved successfully.")
+
+    def parseLessonsFromPlainText(self, text):
+        lessons = []
+        lesson_blocks = []
+        current_block = []
+
+        for line in text.splitlines():
+            if line.strip():
+                current_block.append(line.rstrip())
+            elif current_block:
+                lesson_blocks.append("\n".join(current_block).strip())
+                current_block = []
+
+        if current_block:
+            lesson_blocks.append("\n".join(current_block).strip())
+
+        for i, content in enumerate(lesson_blocks):
+            lessons.append({
+                "section": f"Buổi {i+1}",
+                "lession_content": content
+            })
+
+        return lessons
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     pageHome = PageHome()
