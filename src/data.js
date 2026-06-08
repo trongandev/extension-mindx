@@ -401,7 +401,7 @@ const STYLE_MINDX_WRAPPER = `
                     </div>
                 </div>
                 <button id="mindx-comment-extension-button-submit" type="button">Tạo bình luận</button>
-            </div>`
+</div>`
 
 const MINDX_COMMENT_STRENGTHS = [
     { key: "tốt", label: "Tốt", text: "bạn học tốt, hiểu được bài học" },
