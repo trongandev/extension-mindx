@@ -336,8 +336,12 @@ function renderMindxCommentChips({ container, options, selectedKeys, tone }) {
 function injectFeedbackButtons(rootNode) {
     const findFeedbackTarget = (title) => document.evaluate(`.//div[normalize-space(text())='${title}']`, rootNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
     const renderFeedbackButtons = () => {
+        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+            window.HTMLTextAreaElement.prototype, // dùng HTMLInputElement nếu là <input>
+            "value",
+        ).set
         let pendingCount = 0
-        FEEDBACK_ARRAY.forEach(([title, ...feedbacks]) => {
+        FEEDBACK_ARRAY.forEach(([title, ...feedbacks], feedbackIndex) => {
             const targetElement = findFeedbackTarget(title)
             if (!targetElement) {
                 pendingCount++
@@ -354,9 +358,9 @@ function injectFeedbackButtons(rootNode) {
             group.style.gap = "2px"
 
             const feedbackItems = [
-                { label: "TB", color: "#b28900", text: feedbacks[0] },
-                { label: "Khá", color: "#357a38", text: feedbacks[1] },
-                { label: "Giỏi", color: "#1769aa", text: feedbacks[2] },
+                { label: "TB", color: "#b28900", text: feedbacks[0], title },
+                { label: "Khá", color: "#357a38", text: feedbacks[1], title },
+                { label: "Giỏi", color: "#1769aa", text: feedbacks[2], title },
             ]
 
             feedbackItems.forEach((feedback) => {
@@ -365,9 +369,17 @@ function injectFeedbackButtons(rootNode) {
                 button.className = "btn-cmt"
                 button.style.backgroundColor = feedback.color
                 button.textContent = feedback.label
-                button.addEventListener("click", async () => {
+                button.addEventListener("click", () => {
                     try {
-                        await navigator.clipboard.writeText(feedback.text)
+                        const textareas = Array.from(rootNode.querySelectorAll("textarea"))
+                        const targetTextarea = targetElement.parentElement?.querySelector("textarea") || textareas[feedbackIndex * 2] || textareas[feedbackIndex] || textareas[0]
+
+                        if (!targetTextarea) {
+                            return
+                        }
+
+                        nativeInputValueSetter.call(targetTextarea, feedback.text)
+                        targetTextarea.dispatchEvent(new Event("input", { bubbles: true }))
                     } catch (error) {
                         console.error("Copy failed:", error)
                     }
@@ -555,132 +567,7 @@ function setupDialogPanel(rootNode) {
             }
 
             parentElement.id = "mindx-comment-extension-panel"
-            parentElement.innerHTML = `
-            <div class="mindx-extension-wrapper">
-                <style>
-                    .mindx-extension-wrapper {
-                        background: #ffffff;
-                        border: 1px solid #e0e6ed;
-                        border-radius: 10px;
-                        padding: 16px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-                        margin: 10px 0;
-                    }
-                    .mindx-comment-grid {
-                        display: grid;
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
-                        gap: 14px;
-                    }
-                    .mindx-comment-card {
-                        border: 1px solid #edf2f7;
-                        border-radius: 8px;
-                        padding: 14px;
-                        background: #fbfdff;
-                    }
-                    .mindx-comment-card-strength {
-                        background: #f1fbf5;
-                        border-color: #d7f0df;
-                    }
-                    .mindx-comment-card-weakness {
-                        background: #fff8ed;
-                        border-color: #f8e1b8;
-                    }
-                    .mindx-comment-title {
-                        font-size: 15px;
-                        font-weight: 600;
-                        margin-bottom: 12px;
-                        text-transform: uppercase;
-                        letter-spacing: 0.5px;
-                    }
-                    .mindx-comment-title-strength {
-                        color: #23884b;
-                    }
-                    .mindx-comment-title-weakness {
-                        color: #b66b00;
-                    }
-                    .mindx-comment-chip-list {
-                        display: flex;
-                        gap: 8px;
-                        flex-wrap: wrap;
-                        align-items: center;
-                    }
-                    .mindx-comment-chip {
-                        border: 1px solid transparent;
-                        border-radius: 999px;
-                        padding: 8px 12px;
-                        font-size: 14px;
-                        font-weight: 600;
-                        font-family: inherit;
-                        line-height: 1.2;
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        white-space: nowrap;
-                    }
-                    .mindx-comment-chip-strength {
-                        color: #237345;
-                        background: #e3f7ea;
-                        border-color: #bee7cc;
-                    }
-                    .mindx-comment-chip-strength:hover,
-                    .mindx-comment-chip-strength.is-selected {
-                        color: #ffffff;
-                        background: #23884b;
-                        border-color: #23884b;
-                    }
-                    .mindx-comment-chip-weakness {
-                        color: #9a5f00;
-                        background: #fff0cf;
-                        border-color: #f2d28d;
-                    }
-                    .mindx-comment-chip-weakness:hover,
-                    .mindx-comment-chip-weakness.is-selected {
-                        color: #ffffff;
-                        background: #d47a00;
-                        border-color: #d47a00;
-                    }
-                    .mindx-comment-chip:active,
-                    #mindx-comment-extension-button-submit:active {
-                        transform: scale(0.96);
-                    }
-                    #mindx-comment-extension-button-submit {
-                        border: none;
-                        background-color: #2563eb;
-                        color: white;
-                        padding: 10px 20px;
-                        font-weight: 600;
-                        margin-top: 16px;
-                        border-radius: 8px;
-                        width: 100%;
-                        box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                    }
-                    #mindx-comment-extension-button-submit:hover {
-                        background-color: #1d4ed8;
-                        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-                    }
-                    @media (max-width: 720px) {
-                        .mindx-comment-grid {
-                            grid-template-columns: 1fr;
-                        }
-                    }
-                </style>
-                <div class="mindx-comment-grid">
-                    <div class="mindx-comment-card mindx-comment-card-strength">
-                        <p class="mindx-comment-title mindx-comment-title-strength">Điểm mạnh của học viên</p>
-                        <div class="mindx-comment-chip-list" id="mindx-comment-extension-strengths"></div>
-                    </div>
-                    <div class="mindx-comment-card mindx-comment-card-weakness">
-                        <p class="mindx-comment-title mindx-comment-title-weakness">Cần cải thiện</p>
-                        <div class="mindx-comment-chip-list" id="mindx-comment-extension-weaknesses"></div>
-                    </div>
-                </div>
-                <button id="mindx-comment-extension-button-submit" type="button">Tạo bình luận</button>
-            </div>`
-
+            parentElement.innerHTML = STYLE_MINDX_WRAPPER
             const savedCounts = JSON.parse(localStorage.getItem("mindx-comment-counts") || "{}")
             const sortByCount = (a, b) => (savedCounts[b.key] || 0) - (savedCounts[a.key] || 0)
             const strengthOptions = [...MINDX_COMMENT_STRENGTHS].sort(sortByCount)

@@ -26,7 +26,7 @@ const LEVEL_COURSE = {
     CSB: "Computer Scientist Basic",
     CSA: "Computer Scientist Advanced",
     CSI: "Computer Scientist Intensive",
-};
+}
 
 const FEEDBACK_ARRAY = [
     [
@@ -94,7 +94,7 @@ const FEEDBACK_ARRAY = [
         "- Bạn luôn hoàn thành đầy đủ và đúng hạn các bài tập về nhà, thể hiện sự nghiêm túc và trách nhiệm trong học tập.",
         "- Bạn học rất chăm chỉ và hoàn thành xuất sắc các bài tập về nhà, thể hiện sự tận tâm và đam mê học tập.",
     ],
-];
+]
 
 const FEEDBACK_ARRAY_2 = [
     [
@@ -151,7 +151,7 @@ const FEEDBACK_ARRAY_2 = [
             "Lời khuyên: Bạn nên tiếp tục nâng cao trình độ và xem xét những hướng đi mới trong lĩnh vực công nghệ thông tin.",
         ],
     ],
-];
+]
 
 const STYLE = `
      .comment-button-mindx-container {
@@ -198,7 +198,7 @@ const STYLE = `
         .btn-cmt:active {
             transform: scale(0.95);
         }
-    `;
+    `
 
 const STYLE_FEEDBACK = `
 .mindx-feedback-container {
@@ -275,7 +275,133 @@ const STYLE_FEEDBACK = `
     position: absolute;
 }
 
-`;
+`
+
+const STYLE_MINDX_WRAPPER = `
+            <div class="mindx-extension-wrapper">
+                <style>
+                    .mindx-extension-wrapper {
+                        background: #ffffff;
+                        border: 1px solid #e0e6ed;
+                        border-radius: 10px;
+                        padding: 16px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                        margin: 10px 0;
+                    }
+                    .mindx-comment-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        gap: 14px;
+                    }
+                    .mindx-comment-card {
+                        border: 1px solid #edf2f7;
+                        border-radius: 8px;
+                        padding: 14px;
+                        background: #fbfdff;
+                    }
+                    .mindx-comment-card-strength {
+                        background: #f1fbf5;
+                        border-color: #d7f0df;
+                    }
+                    .mindx-comment-card-weakness {
+                        background: #fff8ed;
+                        border-color: #f8e1b8;
+                    }
+                    .mindx-comment-title {
+                        font-size: 15px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+                    .mindx-comment-title-strength {
+                        color: #23884b;
+                    }
+                    .mindx-comment-title-weakness {
+                        color: #b66b00;
+                    }
+                    .mindx-comment-chip-list {
+                        display: flex;
+                        gap: 8px;
+                        flex-wrap: wrap;
+                        align-items: center;
+                    }
+                    .mindx-comment-chip {
+                        border: 1px solid transparent;
+                        border-radius: 999px;
+                        padding: 8px 12px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        font-family: inherit;
+                        line-height: 1.2;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        white-space: nowrap;
+                    }
+                    .mindx-comment-chip-strength {
+                        color: #237345;
+                        background: #e3f7ea;
+                        border-color: #bee7cc;
+                    }
+                    .mindx-comment-chip-strength:hover,
+                    .mindx-comment-chip-strength.is-selected {
+                        color: #ffffff;
+                        background: #23884b;
+                        border-color: #23884b;
+                    }
+                    .mindx-comment-chip-weakness {
+                        color: #9a5f00;
+                        background: #fff0cf;
+                        border-color: #f2d28d;
+                    }
+                    .mindx-comment-chip-weakness:hover,
+                    .mindx-comment-chip-weakness.is-selected {
+                        color: #ffffff;
+                        background: #d47a00;
+                        border-color: #d47a00;
+                    }
+                    .mindx-comment-chip:active,
+                    #mindx-comment-extension-button-submit:active {
+                        transform: scale(0.96);
+                    }
+                    #mindx-comment-extension-button-submit {
+                        border: none;
+                        background-color: #2563eb;
+                        color: white;
+                        padding: 10px 20px;
+                        font-weight: 600;
+                        margin-top: 16px;
+                        border-radius: 8px;
+                        width: 100%;
+                        box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    }
+                    #mindx-comment-extension-button-submit:hover {
+                        background-color: #1d4ed8;
+                        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+                    }
+                    @media (max-width: 720px) {
+                        .mindx-comment-grid {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+                </style>
+                <div class="mindx-comment-grid">
+                    <div class="mindx-comment-card mindx-comment-card-strength">
+                        <p class="mindx-comment-title mindx-comment-title-strength">Điểm mạnh của học viên</p>
+                        <div class="mindx-comment-chip-list" id="mindx-comment-extension-strengths"></div>
+                    </div>
+                    <div class="mindx-comment-card mindx-comment-card-weakness">
+                        <p class="mindx-comment-title mindx-comment-title-weakness">Cần cải thiện</p>
+                        <div class="mindx-comment-chip-list" id="mindx-comment-extension-weaknesses"></div>
+                    </div>
+                </div>
+                <button id="mindx-comment-extension-button-submit" type="button">Tạo bình luận</button>
+            </div>`
 
 const MINDX_COMMENT_STRENGTHS = [
     { key: "tốt", label: "Tốt", text: "bạn học tốt, hiểu được bài học" },
@@ -288,7 +414,7 @@ const MINDX_COMMENT_STRENGTHS = [
     { key: "phát biểu", label: "Phát biểu", text: "bạn năng nổ, hăng hái phát biểu xây dựng bài" },
     { key: "cẩn thận", label: "Cẩn thận", text: "bạn làm bài cẩn thận, trình bày sạch đẹp" },
     { key: "hòa đồng", label: "Hòa đồng", text: "bạn hòa đồng, hay giúp đỡ bạn bè xung quanh" },
-];
+]
 
 const MINDX_COMMENT_WEAKNESSES = [
     {
@@ -339,7 +465,7 @@ const MINDX_COMMENT_WEAKNESSES = [
         text: "bạn chưa nắm vững một số kiến thức cũ",
         action: "bạn cần chủ động hỏi thầy cô khi chưa hiểu bài và ôn bài cũ nhiều hơn",
     },
-];
+]
 
 const LEARN_FROM_MINDX = {
     ROBB: [
@@ -480,4 +606,4 @@ const LEARN_FROM_MINDX = {
         "Bạn đã có sản phẩm cuối khóa do chính bạn tạo ra dựa trên ý tưởng của bản thân",
         "Bạn được học thêm về cách thiết kế slide và cách thuyết trình về bản thân cũng như sản phẩm của mình",
     ],
-};
+}
